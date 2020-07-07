@@ -15,9 +15,9 @@ export default function Dropzone({ handleUpload }) {
 	} = useDropzone({
 		onDropAccepted,
 		accept: ['image/jpeg', 'image/pjpeg', 'image/png'],
+		multiple: false,
 		minSize: 0,
 		maxSize: 4 * 1024 * 1014,
-		multiple: false,
 	})
 
 	function handleMessageChange(isDragActive, isDragReject) {

@@ -25,9 +25,9 @@ export const FileInfo = styled.div`
 			margin: 5px 0 0;
 			button {
 				border: 0;
+				margin: 0;
 				background: transparent;
 				color: ${props => props.theme.colors.danger};
-				margin: 0 0 0 5px;
 				cursor: pointer;
 			}
 		}

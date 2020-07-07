@@ -1,46 +1,54 @@
 import React, { useContext } from 'react'
+import PropTypes from 'prop-types'
 import { ThemeContext } from 'styled-components'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import { MdCheckCircle, MdError, MdLink } from 'react-icons/md'
 
 import { Container, FileInfo, Preview } from './styles'
 
-export default function FileList() {
+export default function FileList({ files }) {
 	const { colors } = useContext(ThemeContext)
 
 	return (
 		<Container>
-			<li>
-				<FileInfo>
-					<Preview src="http://localhost:3333/files/48cf641da63003fb9f76f4571cc97275-mars.jpg" />
+			{files.map(file => (
+				<li key={file.id}>
+					<FileInfo>
+						<Preview src={file.preview} />
+						<div>
+							<strong>{file.name}</strong>
+							<span>
+								{file.size} <button onClick={() => {}}>Excluir</button>
+							</span>
+						</div>
+					</FileInfo>
 					<div>
-						<strong>Profile.png</strong>
-						<span>
-							64kb <button onClick={() => {}}>Excluir</button>
-						</span>
+						{!file.upload && !file.error && (
+							<CircularProgressbar
+								strokeWidth={10}
+								percentage={file.progress}
+								styles={{
+									root: { width: 24 },
+									path: { stroke: colors.primary },
+								}}
+							/>
+						)}
+						{file.url && (
+							<a href={file.url} target="_blank" rel="noopener noreferrer">
+								<MdLink style={{ marginRight: 8 }} size={24} color="#222" />
+							</a>
+						)}
+						{file.uploaded && (
+							<MdCheckCircle size={24} color={colors.success} />
+						)}
+						{file.error && <MdError size={24} color={colors.danger} />}
 					</div>
-				</FileInfo>
-				<div>
-					<CircularProgressbar
-						strokeWidth={10}
-						percentage={60}
-						styles={{
-							root: { width: 24 },
-							path: { stroke: colors.primary },
-						}}
-					/>
-					<a
-						href="http://localhost:3333/files/48cf641da63003fb9f76f4571cc97275-mars.jpg"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						<MdLink style={{ marginRight: 8 }} size={24} color="#222" />
-					</a>
-
-					<MdCheckCircle size={24} color={colors.success} />
-					<MdError size={24} color={colors.danger} />
-				</div>
-			</li>
+				</li>
+			))}
 		</Container>
 	)
+}
+
+FileList.propTypes = {
+	files: PropTypes.array.isRequired,
 }
