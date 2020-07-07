@@ -5,5 +5,7 @@ export default {
 		secundary: '#393e46',
 		text: '#222831',
 		background: '#fff',
+		success: '#5abd36',
+		danger: '#bc3626',
 	},
 }

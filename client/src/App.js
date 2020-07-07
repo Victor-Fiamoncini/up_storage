@@ -6,18 +6,18 @@ import GlobalStyle from './styles/global'
 import { Container, Content } from './styles'
 
 import Dropzone from './components/utils/Dropzone'
+import FileList from './components/layout/FileList'
 
-function App() {
+export default function App() {
 	return (
 		<ThemeProvider theme={light}>
 			<Container>
 				<Content>
 					<Dropzone />
+					<FileList />
 				</Content>
 			</Container>
 			<GlobalStyle />
 		</ThemeProvider>
 	)
 }
-
-export default App

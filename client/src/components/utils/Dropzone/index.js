@@ -5,7 +5,7 @@ import { Container, Message } from './styles'
 
 export default function Dropzone() {
 	const onDrop = useCallback(acceptedFiles => {
-		console.log(acceptedFiles)
+		console.log(acceptedFiles, typeof acceptedFiles)
 	}, [])
 
 	const {
@@ -20,9 +20,28 @@ export default function Dropzone() {
 		maxSize: 4000,
 	})
 
+	function handleMessageChange(isDragActive, isDragReject) {
+		if (!isDragActive) {
+			return <Message>Arraste arquivos aqui...</Message>
+		}
+
+		if (isDragReject) {
+			return <Message type="danger">Arquivo não suportado</Message>
+		}
+
+		if (isDragActive && !isDragReject) {
+			return <Message type="success">Solte os arquivos aqui</Message>
+		}
+	}
+
 	return (
-		<Container {...getRootProps()}>
+		<Container
+			{...getRootProps()}
+			isDragActive={isDragActive}
+			isDragReject={isDragReject}
+		>
 			<input {...getInputProps()} />
+			{handleMessageChange(isDragActive, isDragReject)}
 		</Container>
 	)
 }
