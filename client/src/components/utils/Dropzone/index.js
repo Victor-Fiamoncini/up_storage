@@ -1,12 +1,11 @@
 import React, { useCallback } from 'react'
+import PropTypes from 'prop-types'
 import { useDropzone } from 'react-dropzone'
 
 import { Container, Message } from './styles'
 
-export default function Dropzone() {
-	const onDrop = useCallback(acceptedFiles => {
-		console.log(acceptedFiles, typeof acceptedFiles)
-	}, [])
+export default function Dropzone({ handleUpload }) {
+	const onDropAccepted = useCallback(handleUpload, [])
 
 	const {
 		getRootProps,
@@ -14,10 +13,11 @@ export default function Dropzone() {
 		isDragActive,
 		isDragReject,
 	} = useDropzone({
-		onDrop,
+		onDropAccepted,
 		accept: ['image/jpeg', 'image/pjpeg', 'image/png'],
 		minSize: 0,
-		maxSize: 4000,
+		maxSize: 4 * 1024 * 1014,
+		multiple: false,
 	})
 
 	function handleMessageChange(isDragActive, isDragReject) {
@@ -44,4 +44,8 @@ export default function Dropzone() {
 			{handleMessageChange(isDragActive, isDragReject)}
 		</Container>
 	)
+}
+
+Dropzone.propTypes = {
+	handleUpload: PropTypes.func.isRequired,
 }
