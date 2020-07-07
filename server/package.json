@@ -1,0 +1,42 @@
+{
+  "name": "aircnc-server",
+  "version": "1.0.0",
+  "main": "./src/index.js",
+  "author": {
+    "name": "Victor B. Fiamoncini",
+    "email": "victor.fiamoncini@gmail.com"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": "^12.16.1"
+  },
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon ./src/server",
+    "build": "babel ./src --out-dir build --copy-files --source-maps --delete-dir-on-start",
+    "start": "NODE_ENV=production babel-node ./build/server",
+    "test": "NODE_ENV=test jest --forceExit"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^3.23.3",
+    "mongoose": "^5.9.21",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.4",
+    "@babel/core": "^7.10.4",
+    "@babel/node": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "eslint": "^7.3.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.0.5",
+    "sucrase": "^3.15.0",
+    "youch": "^2.0.10"
+  }
+}
