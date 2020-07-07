@@ -30,10 +30,10 @@ export default class App {
 	middlewares() {
 		const { CLIENT_WEB_HOST, NODE_ENV } = process.env
 
-		if (NODE_ENV === 'production') {
-			this.express.use(cors({ origin: CLIENT_WEB_HOST }))
-		} else {
+		if (NODE_ENV !== 'production') {
 			this.express.use(cors({ origin: '*' }))
+		} else {
+			this.express.use(cors({ origin: CLIENT_WEB_HOST }))
 		}
 
 		this.express.use(helmet())
@@ -42,10 +42,12 @@ export default class App {
 	}
 
 	static() {
-		this.express.use(
-			`/${process.env.FILE_URL_PREFIX}`,
-			express.static(resolve(__dirname, '..', 'temp', 'uploads'))
+		const pathPrefix = `/${process.env.FILE_URL_PREFIX}`
+		const staticUrl = express.static(
+			resolve(__dirname, '..', 'temp', 'uploads')
 		)
+
+		this.express.use(pathPrefix, staticUrl)
 	}
 
 	routes() {
