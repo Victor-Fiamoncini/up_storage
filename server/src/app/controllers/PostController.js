@@ -23,9 +23,10 @@ class PostController {
 	async destroy(req, res) {
 		const { id } = req.params
 
-		await Post.findByIdAndDelete(id)
+		const post = await Post.findById(id)
 
-		return res.status(200).json({ success: 'post deleted successfully' })
+		await post.remove()
+		return res.status(200).json(post)
 	}
 }
 

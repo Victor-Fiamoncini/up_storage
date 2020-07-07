@@ -1,4 +1,7 @@
 import { model, Schema } from 'mongoose'
+import { unlink } from 'fs'
+import { resolve } from 'path'
+import { promisify } from 'util'
 
 const PostSchema = new Schema(
 	{
@@ -33,6 +36,24 @@ PostSchema.pre('save', function (next) {
 	}
 
 	return next()
+})
+
+PostSchema.pre('remove', function () {
+	try {
+		const pathToFile = resolve(
+			__dirname,
+			'..',
+			'..',
+			'..',
+			'temp',
+			'uploads',
+			this.hash_name
+		)
+
+		return promisify(unlink)(pathToFile)
+	} catch (err) {
+		return err
+	}
 })
 
 export default model('Post', PostSchema)
