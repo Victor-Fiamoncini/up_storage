@@ -17,6 +17,14 @@ export default (state = initialState, { payload, type }) => {
 				error: payload,
 			}
 
+		case PostTypes.UPDATE_SINGLE:
+			return {
+				...state,
+				posts: state.posts.map(file =>
+					file.id === payload.id ? { ...file, ...payload.data } : file
+				),
+			}
+
 		case PostTypes.LOADING:
 			return {
 				...state,

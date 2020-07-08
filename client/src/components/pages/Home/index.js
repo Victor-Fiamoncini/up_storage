@@ -1,27 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import filesize from 'filesize'
-import { v4 as uuid } from 'uuid'
+import { v4 } from 'uuid'
 
 import { Container, Content } from './styles'
 
 import Dropzone from '../../utils/Dropzone'
 import FileList from '../../layout/FileList'
+import Spinner from '../../layout/Spinner'
 
-import api from '../../../services/api'
+import { fetchPosts, storePost } from '../../../store/ducks/post/actions'
 
 export default function Home() {
-	const [uploadedFiles, setUploadedFiles] = useState([])
-
-	function updateFile(id, data) {
-		setUploadedFiles(uploadedFiles =>
-			uploadedFiles.map(file => (file.id === id ? { ...file, ...data } : file))
-		)
-	}
+	const dispatch = useDispatch()
+	const { posts, loading } = useSelector(state => state.post)
 
 	function handleUpload(filesToUpload) {
 		const files = filesToUpload.map(file => ({
 			file,
-			id: uuid(),
+			id: v4(),
 			name: file.name,
 			readableSize: filesize(file.size),
 			preview: URL.createObjectURL(file),
@@ -31,60 +28,19 @@ export default function Home() {
 			url: null,
 		}))
 
-		setUploadedFiles(uploadedFiles => uploadedFiles.concat(files))
-
-		files.forEach(handleProcessUploadRequest)
-	}
-
-	async function handleProcessUploadRequest(fileToUpload) {
-		const formData = new FormData()
-		formData.append('photo', fileToUpload.file, fileToUpload.name)
-
-		try {
-			const { data } = await api.post('/posts', formData, {
-				onUploadProgress: e => {
-					const progress = Number(Math.round((e.loaded * 100) / e.total))
-
-					updateFile(fileToUpload.id, { progress })
-				},
-			})
-
-			updateFile(fileToUpload.id, {
-				id: data._id,
-				url: data.url,
-				uploaded: true,
-			})
-		} catch (err) {
-			updateFile(fileToUpload.id, { error: true })
-		}
+		files.forEach(file => dispatch(storePost(file)))
 	}
 
 	async function handleDelete(id) {
-		await api.delete(`/posts/${id}`)
-
-		setUploadedFiles(uploadedFiles.filter(file => file.id !== id))
+		// await api.delete(`/posts/${id}`)
+		// setUploadedFiles(uploadedFiles.filter(file => file.id !== id))
 	}
 
 	useEffect(() => {
-		async function fetchPosts() {
-			const response = await api.get('/posts')
-
-			setUploadedFiles(
-				response.data.map(file => ({
-					id: file._id,
-					name: file.name,
-					readbleSize: filesize(file.size),
-					preview: file.url,
-					uploaded: true,
-					url: file.url,
-				}))
-			)
-		}
-
-		fetchPosts()
+		dispatch(fetchPosts())
 
 		return () => {
-			uploadedFiles.forEach(file => URL.revokeObjectURL(file.preview))
+			posts.forEach(file => URL.revokeObjectURL(file.preview))
 		}
 	}, [])
 
@@ -92,8 +48,10 @@ export default function Home() {
 		<Container>
 			<Content>
 				<Dropzone handleUpload={handleUpload} />
-				{!!uploadedFiles.length && (
-					<FileList files={uploadedFiles} handleDelete={handleDelete} />
+				{!posts.length > 0 || loading ? (
+					<Spinner loading={loading} />
+				) : (
+					<FileList files={posts} handleDelete={handleDelete} />
 				)}
 			</Content>
 		</Container>

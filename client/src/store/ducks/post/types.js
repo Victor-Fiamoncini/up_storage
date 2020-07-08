@@ -12,4 +12,5 @@ export default {
 	DELETE_ERROR: '@post/DELETE_ERROR',
 
 	LOADING: '@post/LOADING',
+	UPDATE_SINGLE: '@post/UPDATE_SINGLE',
 }
