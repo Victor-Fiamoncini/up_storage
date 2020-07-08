@@ -27,5 +27,6 @@ module.exports = {
 		quotes: ['error', 'single'],
 		semi: ['error', 'never'],
 		'no-unused-vars': 'off',
+		'no-case-declarations': 'off',
 	},
 }

@@ -12,5 +12,6 @@ export default {
 	DELETE_ERROR: '@post/DELETE_ERROR',
 
 	LOADING: '@post/LOADING',
+	CONCAT: '@post/CONCAT',
 	UPDATE_SINGLE: '@post/UPDATE_SINGLE',
 }

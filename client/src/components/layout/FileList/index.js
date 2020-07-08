@@ -1,17 +1,24 @@
 import React, { useContext } from 'react'
-import PropTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux'
 import { ThemeContext } from 'styled-components'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import { MdCheckCircle, MdError, MdLink } from 'react-icons/md'
 
 import { Container, FileInfo, Preview } from './styles'
 
-export default function FileList({ files, handleDelete }) {
+export default function FileList() {
+	const dispatch = useDispatch()
+
 	const { colors } = useContext(ThemeContext)
+	const { posts } = useSelector(state => state.post)
+
+	async function handleDelete(id) {
+		dispatch(() => id)
+	}
 
 	return (
 		<Container>
-			{files.map(file => (
+			{posts.map(file => (
 				<li key={file.id}>
 					<FileInfo>
 						<Preview src={file.preview} />
@@ -50,9 +57,4 @@ export default function FileList({ files, handleDelete }) {
 			))}
 		</Container>
 	)
-}
-
-FileList.propTypes = {
-	files: PropTypes.array.isRequired,
-	handleDelete: PropTypes.func.isRequired,
 }

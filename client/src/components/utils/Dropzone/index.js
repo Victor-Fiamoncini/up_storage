@@ -1,11 +1,17 @@
 import React, { useCallback } from 'react'
-import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
 import { useDropzone } from 'react-dropzone'
 
 import { Container, Message } from './styles'
 
-export default function Dropzone({ handleUpload }) {
-	const onDropAccepted = useCallback(handleUpload, [])
+import { storePost } from '../../../store/ducks/post/actions'
+
+export default function Dropzone() {
+	const dispatch = useDispatch()
+
+	const onDropAccepted = useCallback(filesToUpload => {
+		dispatch(storePost(filesToUpload))
+	}, [])
 
 	const {
 		getRootProps,
@@ -43,8 +49,4 @@ export default function Dropzone({ handleUpload }) {
 			{handleMessageChange(isDragActive, isDragReject)}
 		</Container>
 	)
-}
-
-Dropzone.propTypes = {
-	handleUpload: PropTypes.func.isRequired,
 }

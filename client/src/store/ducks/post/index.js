@@ -10,11 +10,15 @@ export default (state = initialState, { payload, type }) => {
 				loading: false,
 			}
 
-		case PostTypes.FETCH_ERROR:
+		case PostTypes.STORE:
 			return {
 				...state,
-				loading: false,
-				error: payload,
+			}
+
+		case PostTypes.CONCAT:
+			return {
+				...state,
+				posts: [...state.posts, ...payload],
 			}
 
 		case PostTypes.UPDATE_SINGLE:
@@ -31,7 +35,14 @@ export default (state = initialState, { payload, type }) => {
 				loading: true,
 			}
 
+		case PostTypes.FETCH_ERROR:
+			return {
+				...state,
+				loading: false,
+				error: payload,
+			}
+
 		default:
-			return initialState
+			return state
 	}
 }

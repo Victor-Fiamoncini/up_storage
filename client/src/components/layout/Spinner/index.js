@@ -16,5 +16,5 @@ export default function Spinner({ loading }) {
 }
 
 Spinner.propTypes = {
-	loading: PropTypes.bool.isRequired,
+	loading: PropTypes.bool,
 }
