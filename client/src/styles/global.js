@@ -20,7 +20,7 @@ export default createGlobalStyle`
  		font-family: 'Roboto', Arial, Helvetica, sans-serif;
 		font-size: 1rem;
 		background: linear-gradient(to bottom right, ${props =>
-			props.theme.colors.primary}, ${props => props.theme.colors.secundary});
+			props.theme.colors.primary}, ${props => props.theme.colors.tertiary});
 		text-rendering: optimizeLegibility;
 		-webkit-font-smoothing: antialiased;
 	}

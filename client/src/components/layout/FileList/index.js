@@ -6,7 +6,7 @@ import { MdCheckCircle, MdError, MdLink } from 'react-icons/md'
 
 import { Container, FileInfo, Preview } from './styles'
 
-export default function FileList({ files }) {
+export default function FileList({ files, handleDelete }) {
 	const { colors } = useContext(ThemeContext)
 
 	return (
@@ -19,7 +19,9 @@ export default function FileList({ files }) {
 							<strong>{file.name}</strong>
 							<span>
 								{file.size}{' '}
-								{file.uploaded && <button onClick={() => {}}>Excluir</button>}
+								{file.uploaded && (
+									<button onClick={() => handleDelete(file.id)}>Excluir</button>
+								)}
 							</span>
 						</div>
 					</FileInfo>
@@ -52,4 +54,5 @@ export default function FileList({ files }) {
 
 FileList.propTypes = {
 	files: PropTypes.array.isRequired,
+	handleDelete: PropTypes.func.isRequired,
 }
