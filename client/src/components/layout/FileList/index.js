@@ -6,14 +6,16 @@ import { MdCheckCircle, MdError, MdLink } from 'react-icons/md'
 
 import { Container, FileInfo, Preview } from './styles'
 
+import { deletePost } from '../../../store/ducks/post/actions'
+
 export default function FileList() {
 	const dispatch = useDispatch()
 
 	const { colors } = useContext(ThemeContext)
 	const { posts } = useSelector(state => state.post)
 
-	async function handleDelete(id) {
-		dispatch(() => id)
+	function handleDelete(id) {
+		dispatch(deletePost(id))
 	}
 
 	return (

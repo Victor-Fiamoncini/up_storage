@@ -14,4 +14,5 @@ export const Content = styled.div`
 	background: ${props => props.theme.colors.background};
 	border-radius: 4px;
 	padding: 20px;
+	box-shadow: 6px 8px 20px rgba(0, 0, 0, 0.2);
 `

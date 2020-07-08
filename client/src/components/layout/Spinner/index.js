@@ -10,7 +10,7 @@ export default function Spinner({ loading }) {
 
 	return (
 		<Container>
-			<BeatLoader size={32} color={colors.primary} loading={loading} />
+			<BeatLoader size={36} color={colors.primary} loading={loading} />
 		</Container>
 	)
 }

@@ -8,7 +8,7 @@ export default {
 	DELETE: '@post/DELETE',
 	DELETE_ERROR: '@post/DELETE_ERROR',
 
+	PUSH_POSTS: '@post/PUSH_POSTS',
+	UPDATE_SINGLE_POST: '@post/UPDATE_SINGLE_POST',
 	LOADING: '@post/LOADING',
-	CONCAT: '@post/CONCAT',
-	UPDATE_SINGLE: '@post/UPDATE_SINGLE',
 }

@@ -15,13 +15,28 @@ export default (state = initialState, { payload, type }) => {
 				...state,
 			}
 
-		case PostTypes.CONCAT:
+		case PostTypes.DELETE:
+			return {
+				...state,
+				posts: state.posts.filter(post => post.id !== payload),
+			}
+
+		case PostTypes.FETCH_ERROR:
+		case PostTypes.STORE_ERROR:
+		case PostTypes.DELETE_ERROR:
+			return {
+				...state,
+				loading: false,
+				error: payload,
+			}
+
+		case PostTypes.PUSH_POSTS:
 			return {
 				...state,
 				posts: [...state.posts, ...payload],
 			}
 
-		case PostTypes.UPDATE_SINGLE:
+		case PostTypes.UPDATE_SINGLE_POST:
 			return {
 				...state,
 				posts: state.posts.map(file =>
@@ -33,13 +48,6 @@ export default (state = initialState, { payload, type }) => {
 			return {
 				...state,
 				loading: true,
-			}
-
-		case PostTypes.FETCH_ERROR:
-			return {
-				...state,
-				loading: false,
-				error: payload,
 			}
 
 		default:

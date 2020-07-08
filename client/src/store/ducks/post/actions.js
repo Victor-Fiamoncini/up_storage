@@ -38,7 +38,7 @@ export const storePosts = files => async dispatch => {
 		url: null,
 	}))
 
-	dispatch({ type: PostTypes.CONCAT, payload: serializedFiles })
+	dispatch({ type: PostTypes.PUSH_POSTS, payload: serializedFiles })
 
 	serializedFiles.forEach(async file => {
 		const data = new FormData()
@@ -49,10 +49,8 @@ export const storePosts = files => async dispatch => {
 				onUploadProgress: ({ loaded, total }) => {
 					const progress = Number(Math.round((loaded * 100) / total))
 
-					console.log(progress)
-
 					dispatch({
-						type: PostTypes.UPDATE_SINGLE,
+						type: PostTypes.UPDATE_SINGLE_POST,
 						payload: {
 							id: file.id,
 							data: { progress },
@@ -62,7 +60,7 @@ export const storePosts = files => async dispatch => {
 			})
 
 			dispatch({
-				type: PostTypes.UPDATE_SINGLE,
+				type: PostTypes.UPDATE_SINGLE_POST,
 				payload: {
 					id: file.id,
 					data: {
@@ -74,8 +72,9 @@ export const storePosts = files => async dispatch => {
 			})
 			dispatch({ type: PostTypes.STORE })
 		} catch (err) {
+			dispatch({ type: PostTypes.STORE_ERROR, payload: err })
 			dispatch({
-				type: PostTypes.UPDATE_SINGLE,
+				type: PostTypes.UPDATE_SINGLE_POST,
 				payload: {
 					id: file.id,
 					data: { error: true },
@@ -83,4 +82,14 @@ export const storePosts = files => async dispatch => {
 			})
 		}
 	})
+}
+
+export const deletePost = id => async dispatch => {
+	try {
+		await api.delete(`/posts/${id}`)
+
+		dispatch({ type: PostTypes.DELETE, payload: id })
+	} catch (err) {
+		dispatch({ type: PostTypes.DELETE_ERROR, payload: err })
+	}
 }
