@@ -4,13 +4,13 @@ import { useDropzone } from 'react-dropzone'
 
 import { Container, Message } from './styles'
 
-import { storePost } from '../../../store/ducks/post/actions'
+import { storePosts } from '../../../store/ducks/post/actions'
 
 export default function Dropzone() {
 	const dispatch = useDispatch()
 
-	const onDropAccepted = useCallback(filesToUpload => {
-		dispatch(storePost(filesToUpload))
+	const onDropAccepted = useCallback(files => {
+		dispatch(storePosts(files))
 	}, [])
 
 	const {
