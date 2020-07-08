@@ -18,19 +18,20 @@ export default function FileList({ files }) {
 						<div>
 							<strong>{file.name}</strong>
 							<span>
-								{file.size} <button onClick={() => {}}>Excluir</button>
+								{file.size}{' '}
+								{file.uploaded && <button onClick={() => {}}>Excluir</button>}
 							</span>
 						</div>
 					</FileInfo>
 					<div>
-						{!file.upload && !file.error && (
+						{!file.uploaded && !file.error && (
 							<CircularProgressbar
-								strokeWidth={10}
-								percentage={file.progress}
 								styles={{
 									root: { width: 24 },
 									path: { stroke: colors.primary },
 								}}
+								strokeWidth={10}
+								value={file.progress}
 							/>
 						)}
 						{file.url && (

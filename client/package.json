@@ -1,7 +1,20 @@
 {
-  "name": "client",
-  "version": "0.1.0",
-  "private": true,
+	"name": "upstorage-client-web",
+  "version": "1.0.0",
+  "author": {
+    "name": "Victor B. Fiamoncini",
+    "email": "victor.fiamoncini@gmail.com"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": "^12.16.1"
+	},
+	"scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -16,12 +29,13 @@
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.1",
     "uuid": "^8.2.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+	},
+	"devDependencies": {
+    "eslint": "^7.4.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.3",
+    "prettier": "^2.0.5"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -37,12 +51,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "eslint": "^7.4.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.20.3",
-    "prettier": "^2.0.5"
   }
 }
