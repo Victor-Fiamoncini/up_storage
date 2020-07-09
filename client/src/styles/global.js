@@ -1,7 +1,7 @@
 import { createGlobalStyle, css } from 'styled-components'
 import 'react-circular-progressbar/dist/styles.css'
 
-const background = css`
+const appBackground = css`
 	background: linear-gradient(
 		to bottom right,
 		${props => props.theme.colors.primary},
@@ -24,7 +24,7 @@ export default createGlobalStyle`
 	}
 
 	body {
-		${background}
+		${appBackground}
  		font-family: 'Roboto', Arial, Helvetica, sans-serif;
 		font-size: 1rem;
 		text-rendering: optimizeLegibility;

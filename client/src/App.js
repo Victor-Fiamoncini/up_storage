@@ -6,12 +6,12 @@ import light from './styles/themes/light'
 import GlobalStyle from './styles/global'
 
 import store from './store'
-import Home from './components/pages/Home'
+import Routes from './routes'
 
 const App = () => (
 	<Provider store={store}>
 		<ThemeProvider theme={light}>
-			<Home />
+			<Routes />
 			<GlobalStyle />
 		</ThemeProvider>
 	</Provider>
