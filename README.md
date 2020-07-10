@@ -1,6 +1,6 @@
 # Upstorage 🗃
 
-Dropzone with files display, built with 💚 Express, MongoDB, Multer, React/Redux, React-Spring...
+Dropzone with file/upload display, built with 💚 Express, MongoDB, Multer, React/Redux, React-Spring...
 
 ## How to install and run (development build) 🛠
 Using yarn (server folder):
