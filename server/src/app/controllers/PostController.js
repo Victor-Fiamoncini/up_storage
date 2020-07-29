@@ -1,8 +1,13 @@
-import { Post } from '../models'
+import Post from '../models/Post'
+import PostRepository from '../repositories/PostRepository'
 
 class PostController {
 	async index(req, res) {
-		const posts = await Post.find().sort('-createdAt')
+		const posts = await new PostRepository(Post).find()
+
+		if (!posts.length > 0) {
+			return res.status(404).json({ error: 'Posts not found' })
+		}
 
 		return res.status(200).json(posts)
 	}
@@ -10,7 +15,7 @@ class PostController {
 	async store(req, res) {
 		const { filename, originalname, size } = req.file
 
-		const post = await Post.create({
+		const post = await new PostRepository(Post).store({
 			name: originalname,
 			size,
 			hash_name: filename,
@@ -21,12 +26,17 @@ class PostController {
 	}
 
 	async destroy(req, res) {
-		const { id } = req.params
+		const postRepository = new PostRepository(Post)
 
-		const post = await Post.findById(id)
+		const post = await postRepository.findById(req.params.id)
 
-		await post.remove()
-		return res.status(200).json(post)
+		if (!post) {
+			return res.status(404).json({ error: 'Post not found' })
+		}
+
+		await postRepository.destroy(post)
+
+		return res.status(200).json({ success: 'Post deleted successfully' })
 	}
 }
 

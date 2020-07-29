@@ -5,6 +5,6 @@
 		"js": "sucrase-node"
 	},
 	"ignore": [
-    "test"
+    "__tests__"
   ]
 }

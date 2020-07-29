@@ -1,61 +1,59 @@
+import './bootstrap'
 import express from 'express'
 import helmet from 'helmet'
 import cors from 'cors'
 import morgan from 'morgan'
+import compression from 'compression'
 import { resolve } from 'path'
 
-import mongoConnect from './app/config/mongoose'
 import routes from './routes'
-import { error } from './app/middlewares'
+import mongoose from './config/mongoose'
+import error from './app/middlewares/error'
 
-export default class App {
+class App {
 	constructor() {
-		this.express = express()
+		this.server = express()
 
 		this.configs()
 		this.database()
 		this.middlewares()
 		this.static()
-		this.routes()
 	}
 
 	get app() {
-		return this.express
+		return this.server
 	}
 
 	configs() {
-		this.express.disable('x-powered-by')
-	}
-
-	middlewares() {
-		const { CLIENT_WEB_HOST, NODE_ENV } = process.env
-
-		if (NODE_ENV !== 'production') {
-			this.express.use(cors({ origin: '*' }))
-		} else {
-			this.express.use(cors({ origin: CLIENT_WEB_HOST }))
-		}
-
-		this.express.use(helmet())
-		this.express.use(express.json())
-		this.express.use(morgan('dev'))
-	}
-
-	static() {
-		const pathPrefix = `/${process.env.FILE_URL_PREFIX}`
-		const staticUrl = express.static(
-			resolve(__dirname, '..', 'temp', 'uploads')
-		)
-
-		this.express.use(pathPrefix, staticUrl)
-	}
-
-	routes() {
-		this.express.use(routes)
-		this.express.use(error)
+		this.server.disable('x-powered-by')
+		this.inProduction = process.env.NODE_ENV === 'production'
 	}
 
 	database() {
-		mongoConnect()
+		mongoose()
+	}
+
+	middlewares() {
+		if (this.inProduction) {
+			this.server.use(cors({ origin: process.env.CLIENT_WEB_HOST }))
+		} else {
+			this.server.use(cors({ origin: '*' }))
+		}
+
+		this.server.use(helmet())
+		this.server.use(express.json())
+		this.server.use(morgan('dev'))
+		this.server.use(compression())
+		this.server.use(routes)
+		this.server.use(error)
+	}
+
+	static() {
+		const filesDir = resolve(__dirname, '..', 'temp', 'uploads')
+		const staticUrl = express.static(filesDir)
+
+		this.server.use(`/${process.env.FILE_URL_PREFIX}`, staticUrl)
 	}
 }
+
+export default new App().app

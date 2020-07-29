@@ -4,7 +4,7 @@ node_modules/
 build/
 coverage/
 dist/
-
+cache/
 temp/uploads/*
 
 env.js

@@ -8,18 +8,21 @@ const PostSchema = new Schema(
 		name: {
 			type: String,
 			required: [true, 'name is required'],
+			trim: true,
 		},
 		hash_name: {
 			type: String,
 			required: [true, 'hash_name is required'],
+			trim: true,
 		},
 		size: {
 			type: Number,
 			required: [true, 'size is required'],
+			trim: true,
 		},
 		url: {
 			type: String,
-			default: '',
+			trim: true,
 		},
 	},
 	{
@@ -52,7 +55,7 @@ PostSchema.pre('remove', function () {
 
 		return promisify(unlink)(pathToFile)
 	} catch (err) {
-		return err
+		throw new Error('Error to remove file')
 	}
 })
 

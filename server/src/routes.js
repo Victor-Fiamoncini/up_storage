@@ -1,22 +1,17 @@
 import { Router } from 'express'
 
-import * as controllers from './app/controllers'
-import * as middlewares from './app/middlewares'
+import PostController from './app/controllers/PostController'
+
+import async from './app/middlewares/async'
+import upload from './app/middlewares/upload'
 
 const router = Router()
 
 /**
  * Public posts
  */
-router.get('/posts', middlewares.async(controllers.PostController.index))
-router.post(
-	'/posts',
-	middlewares.upload.single('photo'),
-	middlewares.async(controllers.PostController.store)
-)
-router.delete(
-	'/posts/:id',
-	middlewares.async(controllers.PostController.destroy)
-)
+router.get('/posts', async(PostController.index))
+router.post('/posts', upload.single('photo'), async(PostController.store))
+router.delete('/posts/:id', async(PostController.destroy))
 
 export default router
