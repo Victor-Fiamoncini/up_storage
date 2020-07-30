@@ -1,15 +1,14 @@
-import { Model } from 'mongoose'
-
-import { IPostDocument, IPost } from '../models/Post'
-import IPostRepository from './types/IPostRepository'
+import IPostRepository from '@repositories/types/IPostRepository'
+import { IPost } from '@models/types/IPost'
+import Post from '@models/Post'
 
 class PostRepository implements IPostRepository {
-	async findAll(): Promise<Model<IPostDocument, {}>[]> {
+	async findAll(): Promise<IPost[]> {
 		throw new Error('Method not implemented.')
 	}
 
-	async create(post: IPost): Promise<Model<IPostDocument, {}>> {
-		throw new Error('Method not implemented.')
+	async create(post: IPost): Promise<IPost> {
+		return await new Post(post).save()
 	}
 
 	async delete(id: string): Promise<void> {

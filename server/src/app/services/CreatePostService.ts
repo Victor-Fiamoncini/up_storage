@@ -1,4 +1,5 @@
-import PostRepository from '../repositories/PostRepository'
+import PostRepository from '@repositories/PostRepository'
+import { IPost } from '@models/types/IPost'
 
 class CreatePostService {
 	private postRepository: PostRepository
@@ -7,13 +8,11 @@ class CreatePostService {
 		this.postRepository = postRepository || new PostRepository()
 	}
 
-	async run(name: string, size: number, hashName: string, url?: string) {
-		const post = { name, size, hashName, url }
-
+	async run({ name, size, hashName, url }: IPost) {
 		try {
-			return this.postRepository.create(post)
+			return this.postRepository.create({ name, size, hashName, url })
 		} catch (err) {
-			throw new Error('Erro to create a Post')
+			throw new Error('Error to create a Post')
 		}
 	}
 }

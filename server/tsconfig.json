@@ -2,14 +2,31 @@
   "compilerOptions": {
     "target": "ES2017",
 		"module": "commonjs",
+		"lib": ["es6"],
 		"allowJs": true,
 		"strict": true,
+		"removeComments": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
 		"outDir": "./build",
-		"rootDir": "./src"
+		"rootDir": "./src",
+		"baseUrl": ".",
+		"typeRoots": [
+      "./node_modules/@types",
+      "./src/@types"
+    ],
+		"paths": {
+			"@src/*": ["./src/*"],
+			"@routes/*": ["./src/routes/*"],
+			"@config/*": ["./src/config/*"],
+			"@middlewares/*": ["./src/app/middlewares/*"],
+			"@models/*": ["./src/app/models/*"],
+			"@controllers/*": ["./src/app/controllers/*"],
+			"@services/*": ["./src/app/services/*"],
+			"@repositories/*": ["./src/app/repositories/*"]
+		}
 	},
-	"include": ["./src/**/*.ts"],
+	"include": ["./src/**/*"],
 	"exclude": ["./build"]
 }

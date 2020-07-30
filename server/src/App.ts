@@ -1,4 +1,4 @@
-import './bootstrap'
+import '@src/bootstrap'
 import express, { Application } from 'express'
 import helmet from 'helmet'
 import cors from 'cors'
@@ -6,9 +6,9 @@ import morgan from 'morgan'
 import compression from 'compression'
 import { resolve } from 'path'
 
-import routes from './routes'
-import Mongo from './config/mongoose'
-import error from './app/middlewares/error'
+import routes from '@routes/index'
+import Mongo from '@config/mongoose'
+import error from '@middlewares/error'
 
 class App {
 	private server: Application

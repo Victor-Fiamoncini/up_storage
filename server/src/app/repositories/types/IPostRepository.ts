@@ -1,9 +1,8 @@
-import { Model } from 'mongoose'
-import { IPost } from '../../models/Post'
+import { IPost } from '@models/types/IPost'
 
 interface IPostRepository {
-	findAll(): Promise<Model<IPost>[]>
-	create(post: IPost): Promise<Model<IPost>>
+	findAll(): Promise<IPost[]>
+	create(post: IPost): Promise<IPost>
 	delete(id: string): Promise<void>
 }
 

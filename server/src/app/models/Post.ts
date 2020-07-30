@@ -1,16 +1,9 @@
-import { Document, model, Schema } from 'mongoose'
+import { model, Schema } from 'mongoose'
 import { unlink } from 'fs'
 import { resolve } from 'path'
 import { promisify } from 'util'
 
-export interface IPost {
-	name: string
-	hashName: string
-	size: number
-	url?: string
-}
-
-export type IPostDocument = Document & IPost
+import { IPostDocument } from '@src/app/models/types/IPost'
 
 const PostSchema = new Schema<IPostDocument>(
 	{

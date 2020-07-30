@@ -2,8 +2,15 @@ module.exports = {
 	env: {
 		browser: true,
 		es2020: true,
+		jest: true,
 	},
 	extends: 'eslint:recommended',
+	parser: '@typescript-eslint/parser',
+	plugins: ['@typescript-eslint'],
+	parserOptions: {
+		ecmaVersion: 11,
+		sourceType: 'module',
+	},
 	globals: {
 		Atomics: 'readonly',
 		SharedArrayBuffer: 'readonly',
@@ -13,15 +20,12 @@ module.exports = {
 		__dirname: true,
 		require: true,
 	},
-	parserOptions: {
-		ecmaVersion: 11,
-		sourceType: 'module',
-	},
 	rules: {
 		indent: ['error', 'tab', { SwitchCase: 1 }],
 		'linebreak-style': ['error', 'unix'],
 		quotes: ['error', 'single'],
 		semi: ['error', 'never'],
 		'no-unused-vars': 'off',
+		'no-undef': 'off',
 	},
 }
