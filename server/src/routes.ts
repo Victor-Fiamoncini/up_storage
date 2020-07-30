@@ -7,11 +7,8 @@ import upload from './app/middlewares/upload'
 
 const router = Router()
 
-/**
- * Public posts
- */
 router.get('/posts', async(PostController.index))
-router.post('/posts', upload.single('photo'), async(PostController.store))
-router.delete('/posts/:id', async(PostController.destroy))
+// router.post('/posts', upload.single('photo'), async(PostController.store))
+// router.delete('/posts/:id', async(PostController.destroy))
 
 export default router

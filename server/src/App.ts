@@ -1,5 +1,5 @@
 import './bootstrap'
-import express from 'express'
+import express, { Application } from 'express'
 import helmet from 'helmet'
 import cors from 'cors'
 import morgan from 'morgan'
@@ -7,33 +7,31 @@ import compression from 'compression'
 import { resolve } from 'path'
 
 import routes from './routes'
-import mongoose from './config/mongoose'
+import Mongo from './config/mongoose'
 import error from './app/middlewares/error'
 
 class App {
+	private server: Application
+	private inProduction: boolean
+
 	constructor() {
 		this.server = express()
+		this.inProduction = process.env.NODE_ENV === 'production'
 
-		this.configs()
 		this.database()
 		this.middlewares()
 		this.static()
 	}
 
-	get app() {
+	get app(): Application {
 		return this.server
 	}
 
-	configs() {
-		this.server.disable('x-powered-by')
-		this.inProduction = process.env.NODE_ENV === 'production'
+	private database(): void {
+		new Mongo().connect()
 	}
 
-	database() {
-		mongoose()
-	}
-
-	middlewares() {
+	private middlewares(): void {
 		if (this.inProduction) {
 			this.server.use(cors({ origin: process.env.CLIENT_WEB_HOST }))
 		} else {
@@ -48,7 +46,7 @@ class App {
 		this.server.use(error)
 	}
 
-	static() {
+	private static(): void {
 		const filesDir = resolve(__dirname, '..', 'temp', 'uploads')
 		const staticUrl = express.static(filesDir)
 
