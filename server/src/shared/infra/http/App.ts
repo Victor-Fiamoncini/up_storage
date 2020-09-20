@@ -16,7 +16,7 @@ class App {
 	constructor() {
 		this.server = express()
 
-		MongooseConnection.connect().then()
+		MongooseConnection.connect()
 
 		this.middlewares()
 		this.static()
@@ -46,7 +46,7 @@ class App {
 	private static() {
 		const pathPrefix = `/${process.env.FILE_URL_PREFIX}`
 
-		this.server.use(pathPrefix, express.static(uploadConfig.pathToUploads))
+		this.server.use(pathPrefix, express.static(uploadConfig.pathToTemp))
 	}
 }
 

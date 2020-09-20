@@ -33,7 +33,7 @@ class MongooseConnection {
 
 			console.log('Connected to mongodb')
 		} catch (err) {
-			console.log('Error to connect in mongodb')
+			console.error('Error to connect in mongodb')
 		}
 	}
 

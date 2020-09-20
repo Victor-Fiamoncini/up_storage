@@ -4,14 +4,11 @@ import { resolve } from 'path'
 
 import uploadConfig from '@config/upload'
 
-interface IPost extends Document {
-	name: string
-	hash_name: string
-	size: number
-	url: string
-}
+import IPost from '@modules/posts/models/IPost'
 
-const PostSchema = new Schema<IPost>(
+type PostDocument = IPost & Document
+
+const PostSchema = new Schema<PostDocument>(
 	{
 		name: {
 			type: String,
@@ -36,7 +33,7 @@ const PostSchema = new Schema<IPost>(
 	}
 )
 
-PostSchema.pre('save', function (this: IPost, next) {
+PostSchema.pre('save', function (this: PostDocument, next) {
 	const { APP_URL, FILE_URL_PREFIX } = process.env
 
 	if (!this.url) {
@@ -46,10 +43,10 @@ PostSchema.pre('save', function (this: IPost, next) {
 	return next()
 })
 
-PostSchema.pre('remove', async function (this: IPost) {
-	const pathToFile = resolve(uploadConfig.pathToUploads, this.hash_name)
+PostSchema.pre('remove', async function (this: PostDocument) {
+	const pathToFile = resolve(uploadConfig.pathToTemp, this.hash_name)
 
 	return promises.unlink(pathToFile)
 })
 
-export default model<IPost>('Post', PostSchema)
+export default model<PostDocument>('Post', PostSchema)

@@ -4,8 +4,8 @@ node_modules/
 build/
 coverage/
 dist/
-
-temp/uploads/*
+temp/
+uploads/
 
 env.js
 *.env

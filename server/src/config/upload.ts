@@ -5,16 +5,14 @@ import { randomBytes } from 'crypto'
 
 import AppError from '@shared/errors/AppError'
 
-const pathToTemp = resolve(__dirname, '..', '..', '..', 'temp')
-const pathToUploads = resolve(pathToTemp, 'uploads')
+const pathToTemp = resolve(__dirname, '..', '..', 'temp')
 
 export default {
 	pathToTemp,
-	pathToUploads,
-	dest: pathToUploads,
+	dest: pathToTemp,
 	storage: diskStorage({
 		destination: (req, file, callback) => {
-			callback(null, pathToUploads)
+			callback(null, pathToTemp)
 		},
 		filename: (req, file, callback) => {
 			const hash = randomBytes(16).toString('hex')
