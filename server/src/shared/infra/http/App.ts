@@ -6,9 +6,9 @@ import morgan from 'morgan'
 import compression from 'compression'
 import { resolve } from 'path'
 
-import mongoConnect from './app/config/mongoose'
+import mongoConnect from '../../../app/config/mongoose'
 import routes from './routes'
-import { error } from './app/middlewares'
+import error from './middlewares/error'
 
 class App {
 	private readonly server: Application
@@ -16,7 +16,7 @@ class App {
 	constructor() {
 		this.server = express()
 
-		mongoConnect()
+		mongoConnect.connect()
 
 		this.middlewares()
 		this.static()

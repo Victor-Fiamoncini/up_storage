@@ -1,9 +1,15 @@
-import { model, Schema } from 'mongoose'
-import { unlink } from 'fs'
+import { Document, model, Schema } from 'mongoose'
+import { promises } from 'fs'
 import { resolve } from 'path'
-import { promisify } from 'util'
 
-const PostSchema = new Schema(
+interface IPost extends Document {
+	name: string
+	hash_name: string
+	size: number
+	url: string
+}
+
+const PostSchema = new Schema<IPost>(
 	{
 		name: {
 			type: String,
@@ -28,7 +34,7 @@ const PostSchema = new Schema(
 	}
 )
 
-PostSchema.pre('save', function (next) {
+PostSchema.pre('save', function (this: IPost, next) {
 	const { APP_URL, FILE_URL_PREFIX } = process.env
 
 	if (!this.url) {
@@ -38,7 +44,7 @@ PostSchema.pre('save', function (next) {
 	return next()
 })
 
-PostSchema.pre('remove', function () {
+PostSchema.pre('remove', async function (this: IPost) {
 	try {
 		const pathToFile = resolve(
 			__dirname,
@@ -50,10 +56,10 @@ PostSchema.pre('remove', function () {
 			this.hash_name
 		)
 
-		return promisify(unlink)(pathToFile)
+		return promises.unlink(pathToFile)
 	} catch (err) {
 		return err
 	}
 })
 
-export default model('Post', PostSchema)
+export default model<IPost>('Post', PostSchema)

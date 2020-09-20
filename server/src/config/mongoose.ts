@@ -1,7 +1,8 @@
-import { connect } from 'mongoose'
+import { connect, Mongoose } from 'mongoose'
 
 class MongooseConnection {
 	private url: string
+	private connection: Mongoose | undefined
 
 	constructor() {
 		const {
@@ -21,9 +22,9 @@ class MongooseConnection {
 		}
 	}
 
-	private async connect() {
+	public async connect() {
 		try {
-			await connect(this.url, {
+			this.connection = await connect(this.url, {
 				useNewUrlParser: true,
 				useUnifiedTopology: true,
 				useCreateIndex: true,
@@ -36,8 +37,8 @@ class MongooseConnection {
 		}
 	}
 
-	private async close() {
-		// await this.connection.
+	public async close() {
+		await this.connection?.disconnect()
 	}
 }
 
