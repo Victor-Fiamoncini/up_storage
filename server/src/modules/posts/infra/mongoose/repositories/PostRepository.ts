@@ -7,7 +7,7 @@ class PostRepository implements IPostRepository {
 	private readonly model = Post
 
 	public async findAll() {
-		return this.model.find()
+		return this.model.find().sort('-createdAt')
 	}
 
 	public async create({ name, hash_name, size, url }: ICreatePostDTO) {

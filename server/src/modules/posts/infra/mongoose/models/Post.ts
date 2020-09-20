@@ -4,9 +4,9 @@ import { resolve } from 'path'
 
 import uploadConfig from '@config/upload'
 
-import IPost from '@modules/posts/models/IPost'
+import IPostModel from '@modules/posts/models/IPostModel'
 
-type PostDocument = IPost & Document
+type PostDocument = IPostModel & Document
 
 const PostSchema = new Schema<PostDocument>(
 	{
@@ -33,17 +33,15 @@ const PostSchema = new Schema<PostDocument>(
 	}
 )
 
-PostSchema.pre('save', function (this: PostDocument, next) {
+PostSchema.pre<PostDocument>('save', function (next) {
 	const { APP_URL, FILE_URL_PREFIX } = process.env
 
-	if (!this.url) {
-		this.url = `${APP_URL}/${FILE_URL_PREFIX}/${this.hash_name}`
-	}
+	this.url = `${APP_URL}/${FILE_URL_PREFIX}/${this.hash_name}`
 
 	return next()
 })
 
-PostSchema.pre('remove', async function (this: PostDocument) {
+PostSchema.pre<PostDocument>('remove', async function () {
 	const pathToFile = resolve(uploadConfig.pathToTemp, this.hash_name)
 
 	return promises.unlink(pathToFile)

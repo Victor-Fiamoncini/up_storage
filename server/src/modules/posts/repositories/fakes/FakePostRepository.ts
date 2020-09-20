@@ -1,9 +1,11 @@
+import { v4 as uuid } from 'uuid'
+
 import ICreatePostDTO from '@modules/posts/dtos/ICreatePostDTO'
-import IPost from '@modules/posts/models/IPost'
+import IPostModel from '@modules/posts/models/IPostModel'
 import IPostRepository from '@modules/posts/repositories/IPostRepository'
 
 class FakePostRepository implements IPostRepository {
-	private posts: IPost[] = []
+	private posts: IPostModel[] = []
 
 	public async findAll() {
 		return this.posts
@@ -11,6 +13,7 @@ class FakePostRepository implements IPostRepository {
 
 	public async create({ name, hash_name, size, url }: ICreatePostDTO) {
 		this.posts.push({
+			_id: uuid(),
 			name,
 			hash_name,
 			size,

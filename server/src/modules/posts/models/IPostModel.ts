@@ -1,6 +1,6 @@
 import { ObjectID } from 'mongodb'
 
-interface IPost {
+interface IPostModel {
 	readonly _id?: ObjectID | string
 	name: string
 	hash_name: string
@@ -8,4 +8,4 @@ interface IPost {
 	url: string
 }
 
-export default IPost
+export default IPostModel
