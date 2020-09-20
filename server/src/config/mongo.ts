@@ -1,7 +1,7 @@
 import { connect, Mongoose } from 'mongoose'
 
 class MongooseConnection {
-	private url: string
+	private readonly url: string
 	private connection: Mongoose | undefined
 
 	constructor() {

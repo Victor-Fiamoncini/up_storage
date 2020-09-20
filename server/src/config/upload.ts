@@ -3,9 +3,13 @@ import { diskStorage, FileFilterCallback } from 'multer'
 import { resolve } from 'path'
 import { randomBytes } from 'crypto'
 
-const pathToUploads = resolve(__dirname, '..', '..', '..', 'temp', 'uploads')
+import AppError from '@shared/errors/AppError'
+
+const pathToTemp = resolve(__dirname, '..', '..', '..', 'temp')
+const pathToUploads = resolve(pathToTemp, 'uploads')
 
 export default {
+	pathToTemp,
 	pathToUploads,
 	dest: pathToUploads,
 	storage: diskStorage({
@@ -28,12 +32,12 @@ export default {
 		file: Express.Multer.File,
 		callback: FileFilterCallback
 	) => {
-		const allowedMimes = ['image/jpeg', 'image/pjpeg', 'image/png']
+		const allowedMimes = ['image/jpeg', 'image/png']
 
 		if (allowedMimes.includes(file.mimetype)) {
 			callback(null, true)
 		} else {
-			callback(new Error('Invalid file type provided'))
+			callback(new AppError('Invalid file type provided'))
 		}
 	},
 }

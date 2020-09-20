@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import Post from '../../mongoose/models/Post'
+import Post from '@modules/posts/infra/mongoose/models/Post'
 
 class PostController {
 	async index(req: Request, res: Response) {
@@ -27,7 +27,7 @@ class PostController {
 		const post = await Post.findById(id)
 
 		if (!post) {
-			return res.status(200).json({ error: 'Post not found' })
+			return res.status(404).json({ error: 'Post not found' })
 		}
 
 		await post.remove()

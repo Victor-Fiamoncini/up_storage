@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import postRoutes from './post.routes'
+import postRoutes from '@modules/posts/infra/http/routes'
 
 const router = Router()
 

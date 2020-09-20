@@ -4,11 +4,11 @@ import helmet from 'helmet'
 import cors from 'cors'
 import morgan from 'morgan'
 import compression from 'compression'
-import { resolve } from 'path'
 
-import mongoConnect from '../../../app/config/mongoose'
-import routes from './routes'
-import error from './middlewares/error'
+import MongooseConnection from '@config/mongo'
+import routes from '@shared/infra/http/routes'
+import error from '@shared/infra/http/middlewares/error'
+import uploadConfig from '@config/upload'
 
 class App {
 	private readonly server: Application
@@ -16,7 +16,7 @@ class App {
 	constructor() {
 		this.server = express()
 
-		mongoConnect.connect()
+		MongooseConnection.connect().then()
 
 		this.middlewares()
 		this.static()
@@ -46,11 +46,7 @@ class App {
 	private static() {
 		const pathPrefix = `/${process.env.FILE_URL_PREFIX}`
 
-		const staticUrl = express.static(
-			resolve(__dirname, '..', 'temp', 'uploads')
-		)
-
-		this.server.use(pathPrefix, staticUrl)
+		this.server.use(pathPrefix, express.static(uploadConfig.pathToUploads))
 	}
 }
 

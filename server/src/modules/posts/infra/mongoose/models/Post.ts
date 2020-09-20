@@ -2,6 +2,8 @@ import { Document, model, Schema } from 'mongoose'
 import { promises } from 'fs'
 import { resolve } from 'path'
 
+import uploadConfig from '@config/upload'
+
 interface IPost extends Document {
 	name: string
 	hash_name: string
@@ -45,21 +47,9 @@ PostSchema.pre('save', function (this: IPost, next) {
 })
 
 PostSchema.pre('remove', async function (this: IPost) {
-	try {
-		const pathToFile = resolve(
-			__dirname,
-			'..',
-			'..',
-			'..',
-			'temp',
-			'uploads',
-			this.hash_name
-		)
+	const pathToFile = resolve(uploadConfig.pathToUploads, this.hash_name)
 
-		return promises.unlink(pathToFile)
-	} catch (err) {
-		return err
-	}
+	return promises.unlink(pathToFile)
 })
 
 export default model<IPost>('Post', PostSchema)

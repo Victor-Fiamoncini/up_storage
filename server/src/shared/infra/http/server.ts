@@ -1,6 +1,8 @@
-import './bootstrap'
-import app from './App'
+import '@shared/infra/http/bootstrap'
+import app from '@shared/infra/http/App'
 
-const { PORT } = process.env
+const { NODE_ENV, PORT } = process.env
 
-app.listen(PORT, () => console.log(`Server running at ${PORT} ☕️`))
+app.listen(PORT, () =>
+	console.log(`Server running at: ${PORT} - Env: ${NODE_ENV} ☕️`)
+)
