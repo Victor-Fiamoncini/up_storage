@@ -44,7 +44,11 @@ PostSchema.pre<PostDocument>('save', function (next) {
 PostSchema.pre<PostDocument>('remove', async function () {
 	const pathToFile = resolve(uploadConfig.pathToTemp, this.hash_name)
 
-	return promises.unlink(pathToFile)
+	console.log(pathToFile)
+
+	if (pathToFile) {
+		return promises.unlink(pathToFile)
+	}
 })
 
 export default model<PostDocument>('Post', PostSchema)

@@ -5,7 +5,7 @@ interface IPostModel {
 	name: string
 	hash_name: string
 	size: number
-	url: string
+	url?: string
 }
 
 export default IPostModel

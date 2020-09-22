@@ -6,6 +6,7 @@ import cors from 'cors'
 import morgan from 'morgan'
 import compression from 'compression'
 
+import '@shared/container'
 import MongooseConnection from '@config/mongo'
 import routes from '@shared/infra/http/routes'
 import error from '@shared/infra/http/middlewares/error'

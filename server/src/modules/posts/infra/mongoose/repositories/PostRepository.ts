@@ -1,7 +1,8 @@
 import Post from '@modules/posts/infra/mongoose/models/Post'
 
-import ICreatePostDTO from '@modules/posts/dtos/ICreatePostDTO'
 import IPostRepository from '@modules/posts/repositories/IPostRepository'
+
+import ICreatePostDTO from '@modules/posts/dtos/ICreatePostDTO'
 
 class PostRepository implements IPostRepository {
 	private readonly model = Post
@@ -10,8 +11,12 @@ class PostRepository implements IPostRepository {
 		return this.model.find().sort('-createdAt')
 	}
 
-	public async create({ name, hash_name, size, url }: ICreatePostDTO) {
-		return this.model.create({ name, hash_name, size, url })
+	public async findById(id: string) {
+		return this.model.findById(id)
+	}
+
+	public async create({ name, hash_name, size }: ICreatePostDTO) {
+		return this.model.create({ name, hash_name, size })
 	}
 
 	public async delete(id: string) {

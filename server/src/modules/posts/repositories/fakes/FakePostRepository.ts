@@ -11,9 +11,18 @@ class FakePostRepository implements IPostRepository {
 		return this.posts
 	}
 
-	public async create({ name, hash_name, size, url }: ICreatePostDTO) {
+	public async findById(id: string) {
+		const post = this.posts.find(post => post._id === id)
+
+		return post || null
+	}
+
+	public async create({ name, hash_name, size }: ICreatePostDTO) {
+		const _id = uuid()
+		const url = ''
+
 		this.posts.push({
-			_id: uuid(),
+			_id,
 			name,
 			hash_name,
 			size,
@@ -21,6 +30,7 @@ class FakePostRepository implements IPostRepository {
 		})
 
 		return {
+			_id,
 			name,
 			hash_name,
 			size,
@@ -31,7 +41,11 @@ class FakePostRepository implements IPostRepository {
 	public async delete(id: string) {
 		const postIndexToDelete = this.posts.findIndex(post => post._id === id)
 
-		this.posts.slice(postIndexToDelete, 1)
+		if (postIndexToDelete === -1) {
+			return null
+		}
+
+		this.posts.splice(postIndexToDelete, 1)
 	}
 }
 
