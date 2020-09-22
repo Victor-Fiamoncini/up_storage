@@ -4,10 +4,10 @@ import PostController from '@modules/posts/infra/http/controllers/PostController
 
 import upload from '@shared/infra/http/middlewares/upload'
 
-const router = Router()
+const postRouter = Router()
 
-router.get('/', PostController.index)
-router.post('/', upload.single('photo'), PostController.store)
-router.delete('/:id', PostController.destroy)
+postRouter.get('/', PostController.index)
+postRouter.post('/', upload.single('photo'), PostController.store)
+postRouter.delete('/:id', PostController.destroy)
 
-export default router
+export default postRouter
