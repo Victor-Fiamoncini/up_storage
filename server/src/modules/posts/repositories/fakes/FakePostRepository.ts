@@ -1,8 +1,9 @@
 import { v4 as uuid } from 'uuid'
 
-import ICreatePostDTO from '@modules/posts/dtos/ICreatePostDTO'
 import IPostModel from '@modules/posts/models/IPostModel'
 import IPostRepository from '@modules/posts/repositories/IPostRepository'
+
+import ICreatePostDTO from '@modules/posts/dtos/ICreatePostDTO'
 
 class FakePostRepository implements IPostRepository {
 	private posts: IPostModel[] = []
@@ -21,21 +22,9 @@ class FakePostRepository implements IPostRepository {
 		const _id = uuid()
 		const url = ''
 
-		this.posts.push({
-			_id,
-			name,
-			hash_name,
-			size,
-			url,
-		})
+		this.posts.push({ _id, name, hash_name, size, url })
 
-		return {
-			_id,
-			name,
-			hash_name,
-			size,
-			url,
-		}
+		return { _id, name, hash_name, size, url }
 	}
 
 	public async delete(id: string) {

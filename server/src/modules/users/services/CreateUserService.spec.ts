@@ -17,7 +17,7 @@ describe('CreateUser', () => {
 			password: '123456',
 		})
 
-		expect(user.name).toBe('johndoe@mail.com')
+		expect(user.name).toBe('John Doe')
 		expect(user.email).toBe('johndoe@mail.com')
 		expect(user.password).toBe('123456')
 	})
