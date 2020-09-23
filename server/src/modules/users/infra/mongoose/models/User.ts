@@ -17,6 +17,7 @@ const UserSchema = new Schema<UserDocument>(
 		password: {
 			type: String,
 			required: [true, 'password is required'],
+			minlength: [6, 'password length is invalid'],
 		},
 	},
 	{
@@ -24,7 +25,5 @@ const UserSchema = new Schema<UserDocument>(
 		collection: 'users',
 	}
 )
-
-UserSchema.pre<UserDocument>('save', function (next) {})
 
 export default model<UserDocument>('User', UserSchema)

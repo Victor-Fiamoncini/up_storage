@@ -5,13 +5,13 @@ import Post from '@modules/posts/infra/mongoose/models/Post'
 import CreatePostService from '@modules/posts/services/CreatePostService'
 
 class PostController {
-	public async index(req: Request, res: Response) {
+	public async findAll(req: Request, res: Response) {
 		const posts = await Post.find().sort('-createdAt')
 
 		return res.status(200).json(posts)
 	}
 
-	public async store(req: Request, res: Response) {
+	public async create(req: Request, res: Response) {
 		const { filename, originalname, size } = req.file
 
 		const createPostService = container.resolve(CreatePostService)
@@ -25,7 +25,7 @@ class PostController {
 		return res.status(201).json(post)
 	}
 
-	public async destroy(req: Request, res: Response) {
+	public async delete(req: Request, res: Response) {
 		const { id } = req.params
 
 		const post = await Post.findById(id)

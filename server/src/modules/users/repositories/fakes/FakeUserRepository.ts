@@ -8,6 +8,12 @@ import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO'
 class FakeUserRepository implements IUserRepository {
 	private users: IUserModel[] = []
 
+	public async findByEmail(email: string) {
+		const user = this.users.find(user => user.email === email)
+
+		return user || null
+	}
+
 	public async create({ name, email, password }: ICreateUserDTO) {
 		const _id = uuid()
 

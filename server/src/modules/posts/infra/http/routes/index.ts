@@ -6,8 +6,8 @@ import upload from '@shared/infra/http/middlewares/upload'
 
 const postRouter = Router()
 
-postRouter.get('/', PostController.index)
-postRouter.post('/', upload.single('photo'), PostController.store)
-postRouter.delete('/:id', PostController.destroy)
+postRouter.get('/', PostController.findAll)
+postRouter.post('/', upload.single('photo'), PostController.create)
+postRouter.delete('/:id', PostController.delete)
 
 export default postRouter

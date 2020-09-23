@@ -5,6 +5,7 @@ import helmet from 'helmet'
 import cors from 'cors'
 import morgan from 'morgan'
 import compression from 'compression'
+import { errors } from 'celebrate'
 
 import '@shared/container'
 import MongooseConnection from '@config/mongo'
@@ -21,7 +22,6 @@ class App {
 		MongooseConnection.connect()
 
 		this.middlewares()
-		this.static()
 	}
 
 	get app() {
@@ -38,17 +38,15 @@ class App {
 			this.server.use(morgan('dev'))
 		}
 
+		const pathPrefix = `/${process.env.FILE_URL_PREFIX}`
+
 		this.server.use(compression())
 		this.server.use(helmet())
 		this.server.use(express.json())
 		this.server.use(routes)
-		this.server.use(error)
-	}
-
-	private static() {
-		const pathPrefix = `/${process.env.FILE_URL_PREFIX}`
-
 		this.server.use(pathPrefix, express.static(uploadConfig.pathToTemp))
+		this.server.use(errors())
+		this.server.use(error)
 	}
 }
 
