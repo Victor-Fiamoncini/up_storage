@@ -12,7 +12,9 @@ class UserRepository implements IUserRepository {
 	}
 
 	public async create({ name, email, password }: ICreateUserDTO) {
-		return this.model.create({ name, email, password })
+		const user = new this.model({ name, email, password })
+
+		return user.save()
 	}
 }
 

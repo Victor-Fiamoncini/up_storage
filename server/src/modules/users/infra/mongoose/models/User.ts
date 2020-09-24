@@ -8,16 +8,15 @@ const UserSchema = new Schema<UserDocument>(
 	{
 		name: {
 			type: String,
-			required: [true, 'name is required'],
+			required: true,
 		},
 		email: {
 			type: String,
-			required: [true, 'email is required'],
+			required: true,
 		},
 		password: {
 			type: String,
-			required: [true, 'password is required'],
-			minlength: [6, 'password length is invalid'],
+			required: true,
 		},
 	},
 	{

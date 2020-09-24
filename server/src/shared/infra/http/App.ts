@@ -15,9 +15,11 @@ import uploadConfig from '@config/upload'
 
 class App {
 	private readonly server: Application
+	private readonly inProduction: boolean
 
 	constructor() {
 		this.server = express()
+		this.inProduction = process.env.NODE_ENV === 'production'
 
 		MongooseConnection.connect()
 
@@ -29,18 +31,14 @@ class App {
 	}
 
 	private middlewares() {
-		const { CLIENT_WEB_HOST, NODE_ENV } = process.env
-
-		if (NODE_ENV !== 'production') {
-			this.server.use(cors())
-		} else {
-			this.server.use(cors({ origin: CLIENT_WEB_HOST }))
+		if (!this.inProduction) {
 			this.server.use(morgan('dev'))
 		}
 
 		const pathPrefix = `/${process.env.FILE_URL_PREFIX}`
 
 		this.server.use(compression())
+		this.server.use(cors())
 		this.server.use(helmet())
 		this.server.use(express.json())
 		this.server.use(routes)

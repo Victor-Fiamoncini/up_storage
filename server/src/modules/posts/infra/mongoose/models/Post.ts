@@ -12,15 +12,15 @@ const PostSchema = new Schema<PostDocument>(
 	{
 		name: {
 			type: String,
-			required: [true, 'name is required'],
+			required: true,
 		},
 		hash_name: {
 			type: String,
-			required: [true, 'hash_name is required'],
+			required: true,
 		},
 		size: {
 			type: Number,
-			required: [true, 'size is required'],
+			required: true,
 		},
 		url: {
 			type: String,
