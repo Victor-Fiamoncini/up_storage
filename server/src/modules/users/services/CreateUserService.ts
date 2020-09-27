@@ -26,15 +26,15 @@ class CreateUserService {
 		const userByEmail = await this.userRepository.findByEmail(email)
 
 		if (userByEmail) {
-			throw new AppError('An user with provided email already exists')
+			throw new AppError('Email address already used')
 		}
 
-		const encryptedPassword = await this.hashProvider.encrypt(password)
+		const hashedPassword = await this.hashProvider.encrypt(password)
 
 		const user = await this.userRepository.create({
 			name,
 			email,
-			password: encryptedPassword,
+			password: hashedPassword,
 		})
 
 		return user

@@ -8,8 +8,6 @@ export default async (
 	res: Response,
 	next: NextFunction
 ) => {
-	console.log(err.message)
-
 	if (err instanceof AppError) {
 		return res
 			.status(err.status)
@@ -18,5 +16,5 @@ export default async (
 
 	return res
 		.status(400)
-		.json({ status: 'error', message: 'Internal server error' })
+		.json({ status: 'error', message: 'An unexpected error occurred' })
 }

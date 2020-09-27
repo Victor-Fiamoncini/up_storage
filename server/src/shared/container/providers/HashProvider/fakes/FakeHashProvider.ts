@@ -1,12 +1,12 @@
 import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider'
 
 class FakeHashProvider implements IHashProvider {
-	public async encrypt(sample: string) {
-		return sample
+	public async encrypt(payload: string) {
+		return payload
 	}
 
-	public async compare(sample: string, encrypted: string) {
-		return sample === encrypted
+	public async compare(payload: string, encrypted: string) {
+		return payload === encrypted
 	}
 }
 

@@ -1,7 +1,7 @@
 interface IHashProvider {
-	encrypt(sample: string): Promise<string>
+	encrypt(payload: string): Promise<string>
 
-	compare(sample: string, encrypted: string): Promise<boolean>
+	compare(payload: string, encrypted: string): Promise<boolean>
 }
 
 export default IHashProvider
