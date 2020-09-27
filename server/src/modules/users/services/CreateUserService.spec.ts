@@ -1,4 +1,5 @@
 import CreateUserService from '@modules/users/services/CreateUserService'
+
 import FakeUserRepository from '@modules/users/repositories/fakes/FakeUserRepository'
 import FakeHashProvider from '@shared/container/providers/HashProvider/fakes/FakeHashProvider'
 

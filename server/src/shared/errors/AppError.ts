@@ -1,10 +1,8 @@
-class AppError extends Error {
+class AppError {
 	constructor(
 		public readonly message: string,
 		public readonly status: number = 400
-	) {
-		super(message)
-	}
+	) {}
 }
 
 export default AppError

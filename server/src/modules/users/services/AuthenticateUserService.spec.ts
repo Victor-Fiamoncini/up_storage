@@ -1,5 +1,5 @@
-import AuthenticateUserService from './AuthenticateUserService'
-import CreateUserService from './CreateUserService'
+import AuthenticateUserService from '@modules/users/services/AuthenticateUserService'
+import CreateUserService from '@modules/users/services/CreateUserService'
 
 import FakeUserRepository from '@modules/users/repositories/fakes/FakeUserRepository'
 import FakeHashProvider from '@shared/container/providers/HashProvider/fakes/FakeHashProvider'
