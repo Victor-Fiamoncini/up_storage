@@ -1,4 +1,5 @@
 import 'reflect-metadata'
+import 'dotenv/config'
 import express, { Application } from 'express'
 import 'express-async-errors'
 import helmet from 'helmet'
@@ -8,9 +9,10 @@ import compression from 'compression'
 import { errors } from 'celebrate'
 
 import '@shared/container'
+
 import MongooseConnection from '@config/mongo'
 import routes from '@shared/infra/http/routes'
-import error from '@shared/infra/http/middlewares/error'
+import errorHandler from '@shared/infra/http/middlewares/errorHandler'
 import uploadConfig from '@config/upload'
 
 class App {
@@ -44,7 +46,7 @@ class App {
 		this.server.use(routes)
 		this.server.use(pathPrefix, express.static(uploadConfig.pathToTemp))
 		this.server.use(errors())
-		this.server.use(error)
+		this.server.use(errorHandler)
 	}
 }
 

@@ -1,4 +1,3 @@
-import '@shared/infra/http/bootstrap'
 import app from '@shared/infra/http/App'
 
 const { NODE_ENV, PORT } = process.env

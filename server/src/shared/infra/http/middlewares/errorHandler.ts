@@ -8,6 +8,8 @@ export default async (
 	res: Response,
 	next: NextFunction
 ) => {
+	console.error(err.message)
+
 	if (err instanceof AppError) {
 		return res
 			.status(err.status)

@@ -1,11 +1,11 @@
 import { Router } from 'express'
 
-import UserController from '@modules/users/infra/http/controllers/UserController'
+import userRoutes from '@modules/users/infra/http/routes/user.routes'
+import sessionRoutes from '@modules/users/infra/http/routes/session.routes'
 
-import UserValidator from '@modules/users/infra/http/validators/UserValidator'
+const router = Router()
 
-const userRouter = Router()
+router.use('/', userRoutes)
+router.use('/sessions', sessionRoutes)
 
-userRouter.post('/', UserValidator.create(), UserController.create)
-
-export default userRouter
+export default router
