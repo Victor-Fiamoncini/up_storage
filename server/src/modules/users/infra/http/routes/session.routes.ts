@@ -6,6 +6,6 @@ import SessionValidator from '@modules/users/infra/http/validators/SessionValida
 
 const sessionRouter = Router()
 
-sessionRouter.post('/', SessionValidator.create(), SessionController.create)
+sessionRouter.post('/', SessionValidator.create, SessionController.create)
 
 export default sessionRouter

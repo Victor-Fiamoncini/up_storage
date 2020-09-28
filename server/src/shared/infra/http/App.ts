@@ -6,7 +6,6 @@ import helmet from 'helmet'
 import cors from 'cors'
 import morgan from 'morgan'
 import compression from 'compression'
-import { errors } from 'celebrate'
 
 import '@shared/container'
 
@@ -46,7 +45,6 @@ class App {
 		this.server.use(express.json())
 		this.server.use(routes)
 		this.server.use(pathPrefix, express.static(uploadConfig.pathToTemp))
-		this.server.use(errors({ statusCode: 400 }))
 		this.server.use(errorHandler)
 	}
 }
