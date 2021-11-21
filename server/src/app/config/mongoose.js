@@ -6,6 +6,8 @@ export default async () => {
 		DB_TEST,
 		DB_PORT,
 		DB_HOST,
+		DB_USER,
+		DB_PASS,
 		NODE_ENV,
 		MONGO_PRODUCTION_URL,
 	} = process.env
@@ -24,11 +26,14 @@ export default async () => {
 			useUnifiedTopology: true,
 			useCreateIndex: true,
 			useFindAndModify: false,
+			user: DB_USER,
+			pass: DB_PASS,
+			auth: { authSource: 'admin' },
 		})
 
 		console.log('Connected to mongodb')
 	} catch (err) {
-		console.log('Error to connect in mongodb 🔥')
+		console.log('Error to connect in mongodb 🔥', err)
 		process.exit(1)
 	}
 }

@@ -2,14 +2,14 @@ import multer from 'multer'
 import { resolve } from 'path'
 import { randomBytes } from 'crypto'
 
-const pathToUploads = resolve(__dirname, '..', '..', '..', 'temp', 'uploads')
+const pathToTemp = resolve(__dirname, '..', '..', '..', 'temp')
 const allowedMimes = ['image/jpeg', 'image/pjpeg', 'image/png']
 
 export default {
-	dest: pathToUploads,
+	dest: pathToTemp,
 	storage: multer.diskStorage({
 		destination: (req, file, callback) => {
-			callback(null, pathToUploads)
+			callback(null, pathToTemp)
 		},
 		filename: (req, file, callback) => {
 			randomBytes(16, (err, buf) => {

@@ -43,9 +43,7 @@ export default class App {
 
 	static() {
 		const pathPrefix = `/${process.env.FILE_URL_PREFIX}`
-		const staticUrl = express.static(
-			resolve(__dirname, '..', 'temp', 'uploads')
-		)
+		const staticUrl = express.static(resolve(__dirname, '..', 'temp'))
 
 		this.express.use(pathPrefix, staticUrl)
 	}

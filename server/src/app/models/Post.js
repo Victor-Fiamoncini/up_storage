@@ -46,7 +46,6 @@ PostSchema.pre('remove', function () {
 			'..',
 			'..',
 			'temp',
-			'uploads',
 			this.hash_name
 		)
 
