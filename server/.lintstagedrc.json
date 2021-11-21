@@ -1,0 +1,7 @@
+{
+  "./**/*.js": [
+		"yarn test --findRelatedTests",
+		"eslint ./**/*.{js}",
+		"git add"
+  ]
+}
