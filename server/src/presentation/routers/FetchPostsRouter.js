@@ -6,9 +6,15 @@ class FetchPostsRouter {
 	}
 
 	async route(httpRequest) {
-		if (!httpRequest) {
+		if (
+			!httpRequest ||
+			!this.fetchPostsUseCase ||
+			!this.fetchPostsUseCase.fetchPosts
+		) {
 			return HttpResponse.serverError()
 		}
+
+		await this.fetchPostsUseCase.fetchPosts()
 	}
 }
 

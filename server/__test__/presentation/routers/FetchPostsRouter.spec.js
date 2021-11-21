@@ -1,11 +1,14 @@
 const FetchPostsRouter = require('../../../src/presentation/routers/FetchPostsRouter')
 
-class FetchPostsUseCase {
+class FetchPostsUseCaseSky {
 	async fetchPosts() {}
 }
 
 const makeSut = () => {
-	const fetchPostsUseCase = new FetchPostsUseCase()
+	const fetchPostsUseCase = new FetchPostsUseCaseSky()
+
+	fetchPostsUseCase.fetchPosts = jest.fn().mockImplementation(() => {})
+
 	const sut = new FetchPostsRouter(fetchPostsUseCase)
 
 	return {
@@ -25,11 +28,37 @@ describe('FetchPostsRouter', () => {
 
 	it('should receive FetchPostsUseCase correctly', async () => {
 		const { sut } = makeSut()
-
 		const httpRequest = {}
 
 		await sut.route(httpRequest)
 
-		expect(sut.fetchPostsUseCase).toBeInstanceOf(FetchPostsUseCase)
+		expect(sut.fetchPostsUseCase).toBeInstanceOf(FetchPostsUseCaseSky)
+	})
+
+	it('should return 500 if no FetchPostsUseCase is provided', async () => {
+		const sut = new FetchPostsRouter()
+		const httpRequest = {}
+
+		const httpResponse = await sut.route(httpRequest)
+
+		expect(httpResponse.statusCode).toBe(500)
+	})
+
+	it('should return 500 if FetchPostsUseCase has no fetchPosts method', async () => {
+		const sut = new FetchPostsRouter({})
+		const httpRequest = {}
+
+		const httpResponse = await sut.route(httpRequest)
+
+		expect(httpResponse.statusCode).toBe(500)
+	})
+
+	it('should call FetchPostsUseCase fetchPosts method correctly', async () => {
+		const { sut } = makeSut()
+		const httpRequest = {}
+
+		await sut.route(httpRequest)
+
+		expect(sut.fetchPostsUseCase.fetchPosts).toBeCalledTimes(1)
 	})
 })
