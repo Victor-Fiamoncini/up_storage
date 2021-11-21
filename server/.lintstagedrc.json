@@ -1,6 +1,6 @@
 {
   "*.js": [
-		"yarn test --findRelatedTests",
+		"yarn test:staged",
 		"eslint *.js",
 		"git add"
   ]
