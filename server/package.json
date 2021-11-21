@@ -1,5 +1,5 @@
 {
-  "name": "aircnc-server",
+  "name": "upstorage-server",
   "version": "1.0.0",
   "main": "./src/index.js",
   "author": {
@@ -8,13 +8,10 @@
   },
   "license": "MIT",
   "engines": {
-    "node": "^12.16.1"
+    "node": "^12.20.0"
   },
   "scripts": {
-		"dev": "NODE_ENV=development nodemon ./src/server",
-    "build": "babel ./src --out-dir build --copy-files --source-maps --delete-dir-on-start",
-    "start": "NODE_ENV=production babel-node ./build/server",
-    "test": "NODE_ENV=test jest --forceExit"
+    "test": "NODE_ENV=test jest"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -26,14 +23,8 @@
     "multer": "^1.4.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.4",
-    "@babel/core": "^7.10.4",
-    "@babel/node": "^7.10.4",
-    "@babel/plugin-transform-runtime": "^7.10.4",
-    "@babel/preset-env": "^7.10.4",
     "@commitlint/cli": "^15.0.0",
     "@commitlint/config-conventional": "^15.0.0",
-    "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "^7.3.1",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
