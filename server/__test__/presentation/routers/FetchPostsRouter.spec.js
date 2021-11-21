@@ -7,7 +7,6 @@ class FetchPostsUseCaseSky {
 
 const makeSut = () => {
 	const fetchPostsUseCase = new FetchPostsUseCaseSky()
-	fetchPostsUseCase.fetchPosts = jest.fn().mockImplementation(() => [])
 
 	const sut = new FetchPostsRouter(fetchPostsUseCase)
 
@@ -57,8 +56,9 @@ describe('FetchPostsRouter', () => {
 	})
 
 	it('should call FetchPostsUseCase fetchPosts method correctly', async () => {
-		const { sut } = makeSut()
+		const { sut, fetchPostsUseCase } = makeSut()
 		const httpRequest = {}
+		fetchPostsUseCase.fetchPosts = jest.fn().mockImplementationOnce(() => [])
 
 		await sut.route(httpRequest)
 
@@ -66,12 +66,26 @@ describe('FetchPostsRouter', () => {
 	})
 
 	it('should return 200 if all dependencies are called correctly', async () => {
-		const { sut } = makeSut()
+		const { sut, fetchPostsUseCase } = makeSut()
 		const httpRequest = {}
+		fetchPostsUseCase.fetchPosts = jest.fn().mockImplementationOnce(() => [])
 
 		const httpResponse = await sut.route(httpRequest)
 
 		expect(httpResponse.statusCode).toBe(200)
 		expect(httpResponse.body).toEqual([])
+	})
+
+	it('should return 500 if FetchPostsUseCase throws', async () => {
+		const { sut } = makeSut()
+		const httpRequest = {}
+		sut.fetchPostsUseCase.fetchPosts = jest
+			.fn()
+			.mockRejectedValueOnce('any_error')
+
+		const httpResponse = await sut.route(httpRequest)
+
+		expect(httpResponse.statusCode).toBe(500)
+		expect(httpResponse.body).toBeInstanceOf(ServerError)
 	})
 })

@@ -15,7 +15,7 @@ class FetchPostsRouter {
 			const posts = await this.fetchPostsUseCase.fetchPosts()
 
 			return HttpResponse.ok(posts)
-		} catch (error) {
+		} catch {
 			return HttpResponse.serverError()
 		}
 	}
