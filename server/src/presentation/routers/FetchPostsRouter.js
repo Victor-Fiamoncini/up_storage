@@ -1,3 +1,4 @@
+const MissingHttpRequestError = require('../errors/MissingHttpRequestError')
 const HttpResponse = require('../http/HttpResponse')
 
 class FetchPostsRouter {
@@ -6,15 +7,17 @@ class FetchPostsRouter {
 	}
 
 	async route(httpRequest) {
-		if (
-			!httpRequest ||
-			!this.fetchPostsUseCase ||
-			!this.fetchPostsUseCase.fetchPosts
-		) {
+		try {
+			if (!httpRequest) {
+				throw new MissingHttpRequestError()
+			}
+
+			const posts = await this.fetchPostsUseCase.fetchPosts()
+
+			return HttpResponse.ok(posts)
+		} catch (error) {
 			return HttpResponse.serverError()
 		}
-
-		await this.fetchPostsUseCase.fetchPosts()
 	}
 }
 
