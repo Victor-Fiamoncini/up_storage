@@ -7,7 +7,6 @@ class FetchPostsUseCaseSky {
 
 const makeSut = () => {
 	const fetchPostsUseCase = new FetchPostsUseCaseSky()
-
 	const sut = new FetchPostsRouter(fetchPostsUseCase)
 
 	return {
