@@ -26,4 +26,22 @@ describe('FetchPostsUseCase', () => {
 
 		expect(sut.fetchPostsRepository.fetchAll).toBeCalledTimes(1)
 	})
+
+	it('should return an empty array if fetchPosts returns an empty array', async () => {
+		const { sut, fetchPostsRepository } = makeSut()
+		fetchPostsRepository.fetchAll = jest.fn().mockResolvedValueOnce([])
+
+		const posts = await sut.fetchPosts()
+
+		expect(posts).toEqual([])
+	})
+
+	it('should return an empty array if fetchPosts returns null', async () => {
+		const { sut, fetchPostsRepository } = makeSut()
+		fetchPostsRepository.fetchAll = jest.fn().mockResolvedValueOnce(null)
+
+		const posts = await sut.fetchPosts()
+
+		expect(posts).toEqual([])
+	})
 })

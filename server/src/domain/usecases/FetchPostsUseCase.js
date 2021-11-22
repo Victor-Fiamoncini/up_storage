@@ -4,7 +4,13 @@ class FetchPostsUseCase {
 	}
 
 	async fetchPosts() {
-		await this.fetchPostsRepository.fetchAll()
+		const posts = await this.fetchPostsRepository.fetchAll()
+
+		if ((Array.isArray(posts) && !posts.length) || !posts) {
+			return []
+		}
+
+		return posts
 	}
 }
 
