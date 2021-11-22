@@ -13,13 +13,14 @@
   "scripts": {
     "test": "jest --watch --silent --colors --noStackTrace",
     "test:staged": "jest --passWithNoTests --findRelatedTests --noStackTrace",
-		"test:ci": "jest --coverage --silent --noStackTrace"
+    "test:ci": "jest --coverage --silent --noStackTrace"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "helmet": "^3.23.3",
+    "mongodb": "^4.2.0",
     "mongoose": "^5.9.21",
     "morgan": "^1.10.0",
     "multer": "^1.4.2"
