@@ -8,6 +8,7 @@ module.exports = {
 	globals: {
 		Atomics: 'readonly',
 		SharedArrayBuffer: 'readonly',
+		global: true,
 		process: true,
 		module: true,
 		export: true,
