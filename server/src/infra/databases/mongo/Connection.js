@@ -1,10 +1,8 @@
 const { MongoClient } = require('mongodb')
 
-class Connection {
-	constructor() {
-		throw new Error()
-	}
+const env = require('../../../main/config/env')
 
+class Connection {
 	static get instance() {
 		if (!Connection._instance) {
 			Connection._instance = new Connection()
@@ -14,11 +12,17 @@ class Connection {
 	}
 
 	async connect() {
-		this.client = await MongoClient.connect('')
+		const url = `mongodb://${env.mongo.host}:${env.mongo.port}/${env.mongo.name}`
+
+		this.client = await MongoClient.connect(url)
 	}
 
 	async getCollection(collectionName = '') {
-		if (!this.client.isConnected && !this.client.isConnected()) {
+		if (
+			!this.client ||
+			!this.client.isConnected ||
+			!this.client.isConnected()
+		) {
 			await this.connect()
 		}
 

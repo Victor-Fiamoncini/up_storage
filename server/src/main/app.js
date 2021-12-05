@@ -2,13 +2,10 @@ const express = require('express')
 const helmet = require('helmet')
 const cors = require('cors')
 const morgan = require('morgan')
-const { resolve } = require('path')
-const { config } = require('dotenv')
+
+const env = require('./config/env')
 const makeFetchPostsRouter = require('./factories/FetchPostsRouterFactory')
 
-config({ path: resolve(__dirname, '..', '..', '.env') })
-
-const { PORT } = process.env
 const app = express()
 
 app.use(cors({ origin: '*' }))
@@ -24,4 +21,6 @@ app.get('/posts', async (req, res) => {
 	return res.status(statusCode).json(body)
 })
 
-app.listen(PORT, () => console.log(`Server running at ${PORT} ☕️`))
+app.listen(env.app.port, () =>
+	console.log(`Server running at ${env.app.port} ☕️`)
+)

@@ -11,7 +11,8 @@
     "node": "^12.22.0"
   },
   "scripts": {
-    "test": "jest --watch --silent --colors --noStackTrace",
+		"dev": "nodemon src/main/app",
+		"test": "jest --watch --silent --colors --noStackTrace",
     "test:staged": "jest --passWithNoTests --findRelatedTests --noStackTrace",
     "test:ci": "jest --coverage --silent --noStackTrace"
   },

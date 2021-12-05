@@ -4,11 +4,15 @@ const MongoFetchPostsRepository = require('../../infra/repositories/MongoFetchPo
 const FetchPostsRouter = require('../../presentation/routers/FetchPostsRouter')
 
 async function makeFetchPostsRouter() {
-	const postModel = await Connection.instance.getCollection('posts')
-	const fetchPostsRepository = new MongoFetchPostsRepository(postModel)
-	const fetchPostsUseCase = new FetchPostsUseCase(fetchPostsRepository)
+	try {
+		const postModel = await Connection.instance.getCollection('posts')
+		const fetchPostsRepository = new MongoFetchPostsRepository(postModel)
+		const fetchPostsUseCase = new FetchPostsUseCase(fetchPostsRepository)
 
-	return new FetchPostsRouter(fetchPostsUseCase)
+		return new FetchPostsRouter(fetchPostsUseCase)
+	} catch {
+		throw new Error('Error to create FetchPostsRouter')
+	}
 }
 
 module.exports = makeFetchPostsRouter
