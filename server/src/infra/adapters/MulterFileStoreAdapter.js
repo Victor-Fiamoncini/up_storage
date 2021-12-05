@@ -1,18 +1,22 @@
 import multer from 'multer'
 import { randomBytes } from 'crypto'
 
-import env from '@/src/main/config/env'
+import FileStoreAdapter from '@/src/data/adapters/FileStoreAdapter'
 
-const pathToTemp = env.app.tempPath
-const allowedMimes = ['image/jpeg', 'image/pjpeg', 'image/png']
+class MulterFileStoreAdapter extends FileStoreAdapter {
+	constructor(pathToTemp, allowedMimes = []) {
+		super()
 
-class MulterFileStoreMiddleware {
-	static get config() {
+		this.pathToTemp = pathToTemp
+		this.allowedMimes = allowedMimes
+	}
+
+	get config() {
 		return {
-			dest: pathToTemp,
+			dest: this.pathToTemp,
 			storage: multer.diskStorage({
 				destination: (req, file, callback) => {
-					callback(null, pathToTemp)
+					callback(null, this.pathToTemp)
 				},
 				filename: (req, file, callback) => {
 					randomBytes(16, (err, buf) => {
@@ -29,7 +33,7 @@ class MulterFileStoreMiddleware {
 				fileSize: 4 * 1024 * 1024,
 			},
 			fileFilter: (req, file, callback) => {
-				if (allowedMimes.includes(file.mimetype)) {
+				if (this.allowedMimes.includes(file.mimetype)) {
 					callback(null, true)
 				} else {
 					callback(new Error('Invalid file type'))
@@ -38,9 +42,9 @@ class MulterFileStoreMiddleware {
 		}
 	}
 
-	static get storeFile() {
-		return fileAlias => multer(this.config).single(fileAlias)
+	storeFile(file) {
+		return multer(this.config).single(file)
 	}
 }
 
-export default MulterFileStoreMiddleware
+export default MulterFileStoreAdapter

@@ -18,6 +18,8 @@ describe('Connection', () => {
 		expect(sut.database).toBeTruthy()
 		expect(sut.client).toBeInstanceOf(MongoClient)
 		expect(sut.database).toBeInstanceOf(Db)
+
+		await sut.disconnect()
 	})
 
 	it('should disconnect successfully', async () => {
@@ -43,6 +45,8 @@ describe('Connection', () => {
 
 		expect(postsCollection).toBeTruthy()
 		expect(postsCollection).toBeInstanceOf(Collection)
+
+		await sut.disconnect()
 	})
 
 	it('should return "posts" collection when getCollection is called with disconnected client', async () => {
@@ -55,5 +59,7 @@ describe('Connection', () => {
 
 		expect(postsCollection).toBeTruthy()
 		expect(postsCollection).toBeInstanceOf(Collection)
+
+		await sut.disconnect()
 	})
 })

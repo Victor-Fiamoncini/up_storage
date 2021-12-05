@@ -5,15 +5,11 @@ import FetchPostsRouter from '@/src/presentation/routers/FetchPostsRouter'
 
 class FetchPostsRouterFactory {
 	static async make() {
-		try {
-			const postModel = await Connection.instance.getCollection('posts')
-			const fetchPostsRepository = new MongoFetchPostsRepository(postModel)
-			const fetchPostsUseCase = new FetchPostsUseCase(fetchPostsRepository)
+		const postModel = await Connection.instance.getCollection('posts')
+		const fetchPostsRepository = new MongoFetchPostsRepository(postModel)
+		const fetchPostsUseCase = new FetchPostsUseCase(fetchPostsRepository)
 
-			return new FetchPostsRouter(fetchPostsUseCase)
-		} catch {
-			return null
-		}
+		return new FetchPostsRouter(fetchPostsUseCase)
 	}
 }
 

@@ -6,19 +6,15 @@ import env from '@/src/main/config/env'
 
 class StorePostRouterFactory {
 	static async make() {
-		try {
-			const postModel = await Connection.instance.getCollection('posts')
-			const storePostRepository = new MongoStorePostRepository(
-				postModel,
-				env.app.url,
-				env.app.fileUrlPrefix
-			)
-			const storePostUseCase = new StorePostUseCase(storePostRepository)
+		const postModel = await Connection.instance.getCollection('posts')
+		const storePostRepository = new MongoStorePostRepository(
+			postModel,
+			env.app.url,
+			env.app.fileUrlPrefix
+		)
+		const storePostUseCase = new StorePostUseCase(storePostRepository)
 
-			return new StorePostRouter(storePostUseCase)
-		} catch {
-			return null
-		}
+		return new StorePostRouter(storePostUseCase)
 	}
 }
 
