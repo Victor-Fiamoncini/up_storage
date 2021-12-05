@@ -8,7 +8,9 @@ class MongoFetchPostsRepository extends FetchPostsRepository {
 	}
 
 	async fetchAll() {
-		return this.postModel.find()
+		const posts = await this.postModel.find()
+
+		return posts ? posts : []
 	}
 }
 

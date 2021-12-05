@@ -1,5 +1,5 @@
 module.exports = {
+	bail: 1,
 	coverageDirectory: 'coverage',
 	testEnvironment: 'node',
-	preset: '@shelf/jest-mongodb',
 }
