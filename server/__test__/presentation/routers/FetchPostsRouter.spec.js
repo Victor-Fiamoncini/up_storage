@@ -1,12 +1,12 @@
 const ServerError = require('../../../src/presentation/errors/ServerError')
 const FetchPostsRouter = require('../../../src/presentation/routers/FetchPostsRouter')
 
-class FetchPostsUseCaseSky {
+class FetchPostsUseCaseSpy {
 	async fetchPosts() {}
 }
 
 const makeSut = () => {
-	const fetchPostsUseCase = new FetchPostsUseCaseSky()
+	const fetchPostsUseCase = new FetchPostsUseCaseSpy()
 	const sut = new FetchPostsRouter(fetchPostsUseCase)
 
 	return {
@@ -31,7 +31,7 @@ describe('FetchPostsRouter', () => {
 
 		await sut.route(httpRequest)
 
-		expect(sut.fetchPostsUseCase).toBeInstanceOf(FetchPostsUseCaseSky)
+		expect(sut.fetchPostsUseCase).toBeInstanceOf(FetchPostsUseCaseSpy)
 	})
 
 	it('should return 500 if no FetchPostsUseCase is provided', async () => {
