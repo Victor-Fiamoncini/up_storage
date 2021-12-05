@@ -18,15 +18,19 @@ class Connection {
 	}
 
 	async getCollection(collectionName = '') {
-		if (
-			!this.client ||
-			!this.client.isConnected ||
-			!this.client.isConnected()
-		) {
-			await this.connect()
-		}
+		try {
+			if (
+				!this.client ||
+				!this.client.isConnected ||
+				!this.client.isConnected()
+			) {
+				await this.connect()
+			}
 
-		return this.client.db().collection(collectionName)
+			return this.client.db().collection(collectionName)
+		} catch {
+			return null
+		}
 	}
 }
 
