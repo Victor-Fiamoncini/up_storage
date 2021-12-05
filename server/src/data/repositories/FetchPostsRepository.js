@@ -1,4 +1,4 @@
-const UnimplementedMethodError = require('../errors/UnimplementedMethodError')
+import UnimplementedMethodError from '@/src/data/errors/UnimplementedMethodError'
 
 class FetchPostsRepository {
 	async fetchAll() {
@@ -6,4 +6,4 @@ class FetchPostsRepository {
 	}
 }
 
-module.exports = FetchPostsRepository
+export default FetchPostsRepository

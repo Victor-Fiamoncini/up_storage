@@ -6,4 +6,4 @@ class UnimplementedMethodError extends Error {
 	}
 }
 
-module.exports = UnimplementedMethodError
+export default UnimplementedMethodError

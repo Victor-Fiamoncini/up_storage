@@ -6,4 +6,4 @@ class MissingHttpRequestError extends Error {
 	}
 }
 
-module.exports = MissingHttpRequestError
+export default MissingHttpRequestError

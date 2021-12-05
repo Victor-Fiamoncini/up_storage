@@ -1,6 +1,9 @@
 {
 	"watch": ["src"],
 	"ext": "js",
+	"execMap": {
+		"js": "babel-node"
+	},
 	"ignore": [
     "test"
   ]

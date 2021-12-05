@@ -1,6 +1,6 @@
-const MissingHttpRequestError = require('../errors/MissingHttpRequestError')
-const MissingParamError = require('../errors/MissingParamError')
-const HttpResponse = require('../http/HttpResponse')
+import MissingHttpRequestError from '@/src/presentation/errors/MissingHttpRequestError'
+import MissingParamError from '@/src/presentation/errors/MissingParamError'
+import HttpResponse from '@/src/presentation/http/HttpResponse'
 
 class StorePostRouter {
 	constructor(storePostUseCase) {
@@ -38,4 +38,4 @@ class StorePostRouter {
 	}
 }
 
-module.exports = StorePostRouter
+export default StorePostRouter

@@ -1,7 +1,7 @@
-const FetchPostsUseCase = require('../../domain/usecases/FetchPostsUseCase')
-const Connection = require('../../infra/databases/mongo/Connection')
-const MongoFetchPostsRepository = require('../../infra/repositories/MongoFetchPostsRepository')
-const FetchPostsRouter = require('../../presentation/routers/FetchPostsRouter')
+import FetchPostsUseCase from '@/src/domain/usecases/FetchPostsUseCase'
+import Connection from '@/src/infra/databases/mongo/Connection'
+import MongoFetchPostsRepository from '@/src/infra/repositories/MongoFetchPostsRepository'
+import FetchPostsRouter from '@/src/presentation/routers/FetchPostsRouter'
 
 class FetchPostsRouterFactory {
 	static async make() {
@@ -17,4 +17,4 @@ class FetchPostsRouterFactory {
 	}
 }
 
-module.exports = FetchPostsRouterFactory
+export default FetchPostsRouterFactory

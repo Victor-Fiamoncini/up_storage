@@ -1,7 +1,6 @@
-const faker = require('faker')
-
-const ServerError = require('../../../src/presentation/errors/ServerError')
-const StorePostRouter = require('../../../src/presentation/routers/StorePostRouter')
+import faker from 'faker'
+import ServerError from '@/src/presentation/errors/ServerError'
+import StorePostRouter from '@/src/presentation/routers/StorePostRouter'
 
 class StorePostUseCaseSpy {
 	async store() {}

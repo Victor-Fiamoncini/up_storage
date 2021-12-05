@@ -1,4 +1,4 @@
-const FetchPostsRepository = require('../../data/repositories/FetchPostsRepository')
+import FetchPostsRepository from '@/src/data/repositories/FetchPostsRepository'
 
 class MongoFetchPostsRepository extends FetchPostsRepository {
 	constructor(postModel) {
@@ -14,4 +14,4 @@ class MongoFetchPostsRepository extends FetchPostsRepository {
 	}
 }
 
-module.exports = MongoFetchPostsRepository
+export default MongoFetchPostsRepository

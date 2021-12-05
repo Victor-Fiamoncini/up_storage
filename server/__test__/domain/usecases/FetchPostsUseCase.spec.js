@@ -1,4 +1,4 @@
-const FetchPostsUseCase = require('../../../src/domain/usecases/FetchPostsUseCase')
+import FetchPostsUseCase from '@/src/domain/usecases/FetchPostsUseCase'
 
 class FetchPostsRepositorySky {
 	async fetchAll() {}

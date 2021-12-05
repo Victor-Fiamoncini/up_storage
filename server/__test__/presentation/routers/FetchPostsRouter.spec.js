@@ -1,5 +1,5 @@
-const ServerError = require('../../../src/presentation/errors/ServerError')
-const FetchPostsRouter = require('../../../src/presentation/routers/FetchPostsRouter')
+import ServerError from '@/src/presentation/errors/ServerError'
+import FetchPostsRouter from '@/src/presentation/routers/FetchPostsRouter'
 
 class FetchPostsUseCaseSpy {
 	async fetchPosts() {}

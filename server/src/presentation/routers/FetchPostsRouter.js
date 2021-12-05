@@ -1,5 +1,5 @@
-const MissingHttpRequestError = require('../errors/MissingHttpRequestError')
-const HttpResponse = require('../http/HttpResponse')
+import MissingHttpRequestError from '@/src/presentation/errors/MissingHttpRequestError'
+import HttpResponse from '@/src/presentation/http/HttpResponse'
 
 class FetchPostsRouter {
 	constructor(fetchPostsUseCase) {
@@ -21,4 +21,4 @@ class FetchPostsRouter {
 	}
 }
 
-module.exports = FetchPostsRouter
+export default FetchPostsRouter

@@ -14,4 +14,4 @@ class FetchPostsUseCase {
 	}
 }
 
-module.exports = FetchPostsUseCase
+export default FetchPostsUseCase

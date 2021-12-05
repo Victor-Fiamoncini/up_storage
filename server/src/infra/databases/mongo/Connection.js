@@ -1,6 +1,6 @@
-const { MongoClient } = require('mongodb')
+import { MongoClient } from 'mongodb'
 
-const env = require('../../../main/config/env')
+import env from '@/src/main/config/env'
 
 class Connection {
 	static get instance() {
@@ -34,4 +34,4 @@ class Connection {
 	}
 }
 
-module.exports = Connection
+export default Connection

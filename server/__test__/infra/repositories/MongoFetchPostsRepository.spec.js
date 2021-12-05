@@ -1,5 +1,5 @@
-const faker = require('faker')
-const MongoFetchPostsRepository = require('../../../src/infra/repositories/MongoFetchPostsRepository')
+import faker from 'faker'
+import MongoFetchPostsRepository from '@/src/infra/repositories/MongoFetchPostsRepository'
 
 const makeSut = returnValue => {
 	const postModelSpy = {

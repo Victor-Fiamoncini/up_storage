@@ -1,11 +1,11 @@
-const express = require('express')
-const helmet = require('helmet')
-const cors = require('cors')
-const morgan = require('morgan')
-const Youch = require('youch')
+import express from 'express'
+import helmet from 'helmet'
+import cors from 'cors'
+import morgan from 'morgan'
+import Youch from 'youch'
 
-const env = require('./config/env')
-const FetchPostsRouterFactory = require('./factories/FetchPostsRouterFactory')
+import env from '@/src/main/config/env'
+import FetchPostsRouterFactory from '@/src/main/factories/FetchPostsRouterFactory'
 
 const app = express()
 

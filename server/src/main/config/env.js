@@ -1,5 +1,5 @@
-const { resolve } = require('path')
-const { config } = require('dotenv')
+import { resolve } from 'path'
+import { config } from 'dotenv'
 
 config({ path: resolve(__dirname, '..', '..', '..', '.env') })
 
@@ -13,7 +13,7 @@ const {
 	DB_PASS,
 } = process.env
 
-module.exports = {
+export default {
 	app: {
 		port: PORT,
 		env: NODE_ENV,

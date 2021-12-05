@@ -1,4 +1,4 @@
-const ServerError = require('../errors/ServerError')
+import ServerError from '@/src/presentation/errors/ServerError'
 
 class HttpResponse {
 	static ok(data = null) {
@@ -16,4 +16,4 @@ class HttpResponse {
 	}
 }
 
-module.exports = HttpResponse
+export default HttpResponse
