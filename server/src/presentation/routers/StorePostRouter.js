@@ -27,11 +27,13 @@ class StorePostRouter {
 				throw new MissingParamError('fileSize')
 			}
 
-			await this.storePostUseCase.store({
+			const storedPost = await this.storePostUseCase.store({
 				fileName,
 				originalFileName,
 				fileSize,
 			})
+
+			return HttpResponse.created(storedPost)
 		} catch {
 			return HttpResponse.serverError()
 		}

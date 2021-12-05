@@ -12,7 +12,8 @@ class Connection {
 	}
 
 	async connect() {
-		const url = `mongodb://${env.mongo.host}:${env.mongo.port}/${env.mongo.name}`
+		const { mongo } = env
+		const url = `mongodb://${mongo.user}:${mongo.password}@${mongo.host}:${mongo.port}/${mongo.name}`
 
 		this.client = await MongoClient.connect(url)
 	}
@@ -27,7 +28,7 @@ class Connection {
 				await this.connect()
 			}
 
-			return this.client.db().collection(collectionName)
+			return this.client.db(env.mongo.name).collection(collectionName)
 		} catch {
 			return null
 		}

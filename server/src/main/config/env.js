@@ -21,6 +21,7 @@ export default {
 		port: PORT,
 		env: NODE_ENV,
 		fileUrlPrefix: FILE_URL_PREFIX,
+		tempPath: resolve(__dirname, '..', '..', '..', 'temp'),
 	},
 	mongo: {
 		name: DB_NAME,
