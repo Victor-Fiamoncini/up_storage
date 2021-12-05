@@ -5,7 +5,8 @@ import morgan from 'morgan'
 import Youch from 'youch'
 
 import env from '@/src/main/config/env'
-import FetchPostsRouterFactory from '@/src/main/factories/FetchPostsRouterFactory'
+import FetchPostsRouterFactory from '@/src/main/factories/routers/FetchPostsRouterFactory'
+import StorePostRouterFactory from '@/src/main/factories/routers/StorePostRouterFactory'
 
 const app = express()
 
@@ -28,6 +29,32 @@ app.get('/posts', async (req, res) => {
 	}
 
 	const { statusCode, body } = await fetchPostsRouter.route(req)
+
+	return res.status(statusCode).json(body)
+})
+
+app.post('/posts', async (req, res) => {
+	const storePostRouter = await StorePostRouterFactory.make()
+
+	if (!storePostRouter) {
+		const youch = new Youch('Internal server error', req)
+
+		youch.toHTML().then(html => {
+			res.writeHead(500, { 'content-type': 'text/html' })
+			res.write(html)
+			res.end()
+		})
+	}
+
+	const { filename, originalname, size } = req.file
+
+	const httpRequest = {
+		fileName: filename,
+		originalFileName: originalname,
+		fileSize: size,
+	}
+
+	const { statusCode, body } = await storePostRouter.route(httpRequest)
 
 	return res.status(statusCode).json(body)
 })
