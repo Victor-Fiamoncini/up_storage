@@ -3,7 +3,9 @@ import MongoFetchPostsRepository from '@/src/infra/repositories/MongoFetchPostsR
 
 const makeSut = returnValue => {
 	const postModelSpy = {
-		find: jest.fn().mockResolvedValueOnce(returnValue),
+		find: jest.fn().mockReturnValueOnce({
+			toArray: jest.fn().mockResolvedValueOnce(returnValue),
+		}),
 	}
 	const sut = new MongoFetchPostsRepository(postModelSpy)
 
