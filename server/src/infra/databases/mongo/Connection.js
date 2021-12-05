@@ -12,10 +12,18 @@ class Connection {
 	}
 
 	async connect() {
-		const { mongo } = env
-		const url = `mongodb://${mongo.user}:${mongo.password}@${mongo.host}:${mongo.port}/${mongo.name}`
+		const { user, password, host, port, name } = env.mongo
+		const url = `mongodb://${user}:${password}@${host}:${port}/${name}`
 
 		this.client = await MongoClient.connect(url)
+		this.database = this.client.db(name)
+	}
+
+	async disconnect() {
+		await this.client.close()
+
+		this.client = null
+		this.database = null
 	}
 
 	async getCollection(collectionName = '') {
@@ -28,7 +36,7 @@ class Connection {
 				await this.connect()
 			}
 
-			return this.client.db(env.mongo.name).collection(collectionName)
+			return this.database.collection(collectionName)
 		} catch {
 			return null
 		}
