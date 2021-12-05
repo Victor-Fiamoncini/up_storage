@@ -90,4 +90,13 @@ describe('StorePostRouter', () => {
 		expect(httpResponse.statusCode).toBe(500)
 		expect(httpResponse.body).toBeInstanceOf(ServerError)
 	})
+
+	it('should return created status after successfull post store', async () => {
+		const { sut, storePostUseCase, httpRequest } = makeSut()
+		storePostUseCase.store = jest.fn(() => null)
+
+		const httpResponse = await sut.route(httpRequest)
+
+		expect(httpResponse.statusCode).toBe(201)
+	})
 })
