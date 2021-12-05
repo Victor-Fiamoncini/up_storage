@@ -13,14 +13,14 @@ class StorePostRouter {
 				throw new MissingHttpRequestError()
 			}
 
-			const { fileName, originalFilename, fileSize } = httpRequest
+			const { fileName, originalFileName, fileSize } = httpRequest
 
 			if (!fileName) {
 				throw new MissingParamError('fileName')
 			}
 
-			if (!originalFilename) {
-				throw new MissingParamError('originalFilename')
+			if (!originalFileName) {
+				throw new MissingParamError('originalFileName')
 			}
 
 			if (!fileSize) {
@@ -29,7 +29,7 @@ class StorePostRouter {
 
 			await this.storePostUseCase.store({
 				fileName,
-				originalFilename,
+				originalFileName,
 				fileSize,
 			})
 		} catch {

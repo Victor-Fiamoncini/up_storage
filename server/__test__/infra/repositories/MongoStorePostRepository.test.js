@@ -5,11 +5,15 @@ const makeSut = returnValue => {
 	const postModelSpy = {
 		insertOne: jest.fn().mockResolvedValueOnce(returnValue),
 	}
-	const sut = new MongoStorePostRepository(postModelSpy)
+	const sut = new MongoStorePostRepository(
+		postModelSpy,
+		faker.internet.url(),
+		faker.random.word()
+	)
 
 	const params = {
 		fileName: faker.random.alphaNumeric(),
-		originalFilename: faker.random.alphaNumeric(),
+		originalFileName: faker.random.alphaNumeric(),
 		fileSize: faker.datatype.number(),
 	}
 
@@ -28,14 +32,19 @@ describe('MongoStorePostRepository', () => {
 
 		await sut.store(params)
 
-		expect(sut.postModel.insertOne).toHaveBeenCalledWith(params)
+		expect(sut.postModel.insertOne).toHaveBeenCalledWith({
+			name: params.originalFileName,
+			size: params.fileSize,
+			hash_name: params.fileName,
+			url: `${sut.baseStoreUrl}/${sut.fileUrlPrefix}/${params.fileName}`,
+		})
 	})
 
 	it('should return null if store post failed', async () => {
-		const { sut } = makeSut(db)
+		const { sut, params } = makeSut(db)
 		sut.postModel.insertOne = jest.fn().mockResolvedValueOnce(null)
 
-		const storedPost = await sut.store()
+		const storedPost = await sut.store(params)
 
 		expect(storedPost).toEqual(null)
 	})

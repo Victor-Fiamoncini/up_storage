@@ -3,10 +3,10 @@ class StorePostUseCase {
 		this.storePostRepository = storePostRepository
 	}
 
-	async store({ fileName, originalFilename, fileSize }) {
+	async store({ fileName, originalFileName, fileSize }) {
 		const post = await this.storePostRepository.store({
 			fileName,
-			originalFilename,
+			originalFileName,
 			fileSize,
 		})
 

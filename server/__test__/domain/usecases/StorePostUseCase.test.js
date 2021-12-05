@@ -11,7 +11,7 @@ const makeSut = () => {
 
 	const params = {
 		fileName: faker.random.alphaNumeric(),
-		originalFilename: faker.random.alphaNumeric(),
+		originalFileName: faker.random.alphaNumeric(),
 		fileSize: faker.datatype.number(),
 	}
 
