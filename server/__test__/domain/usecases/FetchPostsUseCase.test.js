@@ -1,11 +1,11 @@
 import FetchPostsUseCase from '@/src/domain/usecases/FetchPostsUseCase'
 
-class FetchPostsRepositorySky {
+class FetchPostsRepositorySpy {
 	async fetchAll() {}
 }
 
 const makeSut = () => {
-	const fetchPostsRepository = new FetchPostsRepositorySky()
+	const fetchPostsRepository = new FetchPostsRepositorySpy()
 	const sut = new FetchPostsUseCase(fetchPostsRepository)
 
 	return { sut, fetchPostsRepository }
@@ -15,7 +15,7 @@ describe('FetchPostsUseCase', () => {
 	it('should receive FetchPostsRepository correctly', async () => {
 		const { sut } = makeSut()
 
-		expect(sut.fetchPostsRepository).toBeInstanceOf(FetchPostsRepositorySky)
+		expect(sut.fetchPostsRepository).toBeInstanceOf(FetchPostsRepositorySpy)
 	})
 
 	it('should call FetchPostsRepository correctly', async () => {
