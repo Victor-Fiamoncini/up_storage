@@ -15,6 +15,12 @@ class HttpResponse {
 		}
 	}
 
+	static noContent() {
+		return {
+			statusCode: 204,
+		}
+	}
+
 	static serverError() {
 		return {
 			statusCode: 500,
