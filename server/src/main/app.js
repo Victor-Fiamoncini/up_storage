@@ -15,6 +15,7 @@ app.use(cors({ origin: '*' }))
 app.use(helmet())
 app.use(express.json())
 app.use(morgan('dev'))
+app.use(`/${Env.app.fileUrlPrefix}`, express.static(Env.app.tempPath))
 app.use(routes)
 
 app.listen(Env.app.port, () =>
