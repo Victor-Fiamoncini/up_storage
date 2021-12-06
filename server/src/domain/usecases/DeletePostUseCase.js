@@ -1,12 +1,12 @@
 class DeletePostUseCase {
-	constructor({ deletePostRepository, deleteFileAdapter }) {
+	constructor({ deletePostRepository, fileDeleteAdapter }) {
 		this.deletePostRepository = deletePostRepository
-		this.deleteFileAdapter = deleteFileAdapter
+		this.fileDeleteAdapter = fileDeleteAdapter
 	}
 
 	async delete({ id, hashName }) {
 		await this.deletePostRepository.deleteById(id)
-		await this.deleteFileAdapter.delete(hashName)
+		await this.fileDeleteAdapter.deleteFile(hashName)
 	}
 }
 

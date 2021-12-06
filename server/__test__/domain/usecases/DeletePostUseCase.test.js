@@ -5,29 +5,29 @@ class DeletePostRepositorySpy {
 	async deleteById() {}
 }
 
-class DeleteFileAdapterSpy {
-	async delete() {}
+class FileDeleteAdapterSpy {
+	async deleteFile() {}
 }
 
 const makeSut = () => {
 	const deletePostRepository = new DeletePostRepositorySpy()
-	const deleteFileAdapter = new DeleteFileAdapterSpy()
-	const sut = new DeletePostUseCase({ deletePostRepository, deleteFileAdapter })
+	const fileDeleteAdapter = new FileDeleteAdapterSpy()
+	const sut = new DeletePostUseCase({ deletePostRepository, fileDeleteAdapter })
 
 	const params = {
 		id: faker.datatype.uuid(),
 		hashName: faker.datatype.uuid(),
 	}
 
-	return { sut, deletePostRepository, deleteFileAdapter, params }
+	return { sut, deletePostRepository, fileDeleteAdapter, params }
 }
 
 describe('DeletePostUseCase', () => {
-	it('should receive deletePostRepository & deleteFileAdapter correctly', async () => {
+	it('should receive deletePostRepository & fileDeleteAdapter correctly', async () => {
 		const { sut } = makeSut()
 
 		expect(sut.deletePostRepository).toBeInstanceOf(DeletePostRepositorySpy)
-		expect(sut.deleteFileAdapter).toBeInstanceOf(DeleteFileAdapterSpy)
+		expect(sut.fileDeleteAdapter).toBeInstanceOf(FileDeleteAdapterSpy)
 	})
 
 	it('should call deletePostRepository correctly', async () => {
@@ -39,12 +39,14 @@ describe('DeletePostUseCase', () => {
 		expect(sut.deletePostRepository.deleteById).toHaveBeenCalledWith(params.id)
 	})
 
-	it('should call deleteFileAdapter correctly', async () => {
-		const { sut, deleteFileAdapter, params } = makeSut()
-		deleteFileAdapter.delete = jest.fn(() => null)
+	it('should call fileDeleteAdapter correctly', async () => {
+		const { sut, fileDeleteAdapter, params } = makeSut()
+		fileDeleteAdapter.deleteFile = jest.fn(() => null)
 
 		await sut.delete(params)
 
-		expect(sut.deleteFileAdapter.delete).toHaveBeenCalledWith(params.hashName)
+		expect(sut.fileDeleteAdapter.deleteFile).toHaveBeenCalledWith(
+			params.hashName
+		)
 	})
 })
