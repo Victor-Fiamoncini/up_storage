@@ -135,4 +135,7 @@ dist
 /temp/*
 !temp/.gitkeep
 
+# Docker
+.docker
+
 # End of https://www.toptal.com/developers/gitignore/api/node

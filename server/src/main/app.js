@@ -3,7 +3,7 @@ import helmet from 'helmet'
 import cors from 'cors'
 import morgan from 'morgan'
 
-import env from '@/src/main/config/env'
+import Env from '@/src/main/config/Env'
 import Connection from '@/src/infra/databases/mongo/Connection'
 import routes from '@/src/main/routes'
 
@@ -17,6 +17,6 @@ app.use(express.json())
 app.use(morgan('dev'))
 app.use(routes)
 
-app.listen(env.app.port, () =>
-	console.log(`Server running at ${env.app.port} ☕️`)
+app.listen(Env.app.port, () =>
+	console.log(`Server running at ${Env.app.port} ☕️`)
 )

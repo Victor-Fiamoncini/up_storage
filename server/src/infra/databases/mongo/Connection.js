@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb'
 
-import env from '@/src/main/config/env'
+import Env from '@/src/main/config/Env'
 
 class Connection {
 	static get instance() {
@@ -12,10 +12,10 @@ class Connection {
 	}
 
 	async connect() {
-		const { user, password, host, port, name } = env.mongo
+		const { user, password, host, port, name } = Env.mongo
 		const url = `mongodb://${user}:${password}@${host}:${port}/${name}`
 
-		this.client = await MongoClient.connect(url)
+		this.client = await MongoClient.connect(url, { authSource: 'admin' })
 		this.database = this.client.db(name)
 	}
 

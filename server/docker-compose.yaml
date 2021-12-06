@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  database:
+    image: mongo
+    container_name: up_storage_mongo
+    hostname: mongodb
+    env_file:
+      - .env
+    environment:
+      MONGODB_DATABASE: "${DB_NAME}"
+      MONGODB_USER: "${DB_USER}"
+      MONGODB_PASS: "${DB_PASS}"
+    ports:
+      - 27017:${DB_PORT}
+    volumes:
+      - ./.docker/up_storage_mongo:/data/db
