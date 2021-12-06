@@ -8,6 +8,7 @@ Using yarn (server folder):
 
 ```bash
 cp .env.example .env # env vars
+docker-compose up -d # init mongodb container
 yarn # install deps
 yarn dev # run dev server
 ```
