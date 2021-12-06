@@ -1,21 +1,23 @@
 # Upstorage 🗃
 
-Dropzone with file/upload display, built with Express, MongoDB, Multer, React/Redux, React-Spring...
+Fullstack dropzone with file/upload display, built with clean architecture & TDD
 
 ## How to install and run (development build) 🛠
 
 Using yarn (server folder):
 
 ```bash
-yarn 
-yarn dev
+cp .env.example .env # env vars
+yarn # install deps
+yarn dev # run dev server
 ```
 
 Using yarn (client folder):
 
 ```bash
-yarn 
-yarn start
+cp .env.example .env # env vars
+yarn # install deps
+yarn start # run dev server
 ```
 
 ----------
