@@ -7,10 +7,6 @@ services:
     hostname: mongodb
     env_file:
       - .env
-    environment:
-      MONGODB_DATABASE: "${DB_NAME}"
-      MONGODB_USER: "${DB_USER}"
-      MONGODB_PASS: "${DB_PASS}"
     ports:
       - 27017:${DB_PORT}
     volumes:

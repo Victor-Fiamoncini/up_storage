@@ -12,10 +12,10 @@ class Connection {
 	}
 
 	async connect() {
-		const { user, password, host, port, name } = Env.mongo
-		const url = `mongodb://${user}:${password}@${host}:${port}/${name}`
+		const { host, port, name } = Env.mongo
+		const url = `mongodb://${host}:${port}/${name}`
 
-		this.client = await MongoClient.connect(url, { authSource: 'admin' })
+		this.client = await MongoClient.connect(url)
 		this.database = this.client.db(name)
 	}
 
