@@ -4,9 +4,12 @@ class DeletePostUseCase {
 		this.fileDeleteAdapter = fileDeleteAdapter
 	}
 
-	async delete({ id, hashName }) {
-		await this.deletePostRepository.deleteById(id)
-		await this.fileDeleteAdapter.deleteFile(hashName)
+	async delete(id) {
+		const deletedPost = await this.deletePostRepository.deleteById(id)
+
+		if (deletedPost) {
+			await this.fileDeleteAdapter.deleteFile(deletedPost?.hashName)
+		}
 	}
 }
 
