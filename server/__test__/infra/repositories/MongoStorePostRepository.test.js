@@ -59,7 +59,13 @@ describe('MongoStorePostRepository', () => {
 
 		const storedPost = await sut.store(post)
 
-		expect(storedPost).toEqual(post)
+		expect(storedPost).toEqual({
+			hashName: post.fileName,
+			id: undefined,
+			name: post.originalFileName,
+			size: post.fileSize,
+			url: `${sut.baseStoreUrl}/${sut.fileUrlPrefix}/${post.fileName}`,
+		})
 		expect(db).toEqual([post])
 	})
 })

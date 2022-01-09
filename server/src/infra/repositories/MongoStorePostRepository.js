@@ -19,7 +19,17 @@ class MongoStorePostRepository extends StorePostRepository {
 			url,
 		})
 
-		return storedPost ? storedPost : null
+		if (storedPost) {
+			return {
+				id: storedPost.insertedId,
+				name: originalFileName,
+				size: fileSize,
+				hashName: fileName,
+				url,
+			}
+		}
+
+		return null
 	}
 }
 
