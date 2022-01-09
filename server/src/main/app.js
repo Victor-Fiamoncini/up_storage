@@ -18,6 +18,6 @@ app.use(morgan('dev'))
 app.use(`/${Env.app.fileUrlPrefix}`, express.static(Env.app.tempPath))
 app.use(routes)
 
-app.listen(Env.app.port, () =>
+app.listen(Env.app.port, () => {
 	console.log(`Server running at ${Env.app.port} ☕️`)
-)
+})

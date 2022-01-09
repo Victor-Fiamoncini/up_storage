@@ -11,8 +11,8 @@ class MulterFileStoreAdapter extends FileStoreAdapter {
 		this.allowedMimes = allowedMimes
 	}
 
-	get config() {
-		return {
+	storeFile(file) {
+		const multerConfig = {
 			dest: this.pathToTemp,
 			storage: multer.diskStorage({
 				destination: (req, file, callback) => {
@@ -40,10 +40,8 @@ class MulterFileStoreAdapter extends FileStoreAdapter {
 				}
 			},
 		}
-	}
 
-	storeFile(file) {
-		return multer(this.config).single(file)
+		return multer(multerConfig).single(file)
 	}
 }
 

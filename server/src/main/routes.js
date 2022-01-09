@@ -3,12 +3,19 @@ import { Router } from 'express'
 import FetchPostsRouterFactory from '@/src/main/factories/routers/FetchPostsRouterFactory'
 import StorePostRouterFactory from '@/src/main/factories/routers/StorePostRouterFactory'
 import FileStoreAdapterFactory from '@/src/main/factories/adapters/FileStoreAdapterFactory'
-import DeletePostRouterFactory from './factories/routers/DeletePostRouterFactory'
+import DeletePostRouterFactory from '@/src/main/factories/routers/DeletePostRouterFactory'
+import UnexpectedError from '@/src/main/errors/UnexpectedError'
 
 const router = Router()
 
 router.get('/posts', async (req, res) => {
-	const fetchPostsRouter = await FetchPostsRouterFactory.make()
+	let fetchPostsRouter
+
+	try {
+		fetchPostsRouter = await FetchPostsRouterFactory.make()
+	} catch {
+		return res.status(500).json(new UnexpectedError())
+	}
 
 	const { statusCode, body } = await fetchPostsRouter.route(req)
 
@@ -19,7 +26,13 @@ router.post(
 	'/posts',
 	FileStoreAdapterFactory.make().storeFile('photo'),
 	async (req, res) => {
-		const storePostRouter = await StorePostRouterFactory.make()
+		let storePostRouter
+
+		try {
+			storePostRouter = await StorePostRouterFactory.make()
+		} catch {
+			return res.status(500).json(new UnexpectedError())
+		}
 
 		const { filename, originalname, size } = req.file
 
@@ -36,7 +49,13 @@ router.post(
 )
 
 router.delete('/posts/:id', async (req, res) => {
-	const deletePostRouter = await DeletePostRouterFactory.make()
+	let deletePostRouter
+
+	try {
+		deletePostRouter = await DeletePostRouterFactory.make()
+	} catch {
+		return res.status(500).json(new UnexpectedError())
+	}
 
 	const httpRequest = {
 		id: req.params.id,
@@ -44,7 +63,11 @@ router.delete('/posts/:id', async (req, res) => {
 
 	const { statusCode } = await deletePostRouter.route(httpRequest)
 
-	return res.status(statusCode)
+	return res.status(statusCode).json()
+})
+
+router.use((err, req, res, next) => {
+	return res.status(500).send(new UnexpectedError())
 })
 
 export default router
