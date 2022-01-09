@@ -1,4 +1,6 @@
+import { ObjectID } from 'bson'
 import faker from 'faker'
+
 import DeletePostUseCase from '@/src/domain/usecases/DeletePostUseCase'
 
 class DeletePostRepositorySpy {
@@ -9,17 +11,22 @@ class FileDeleteAdapterSpy {
 	async deleteFile() {}
 }
 
+const deletedPost = {
+	id: new ObjectID().toString(),
+	hashName: faker.datatype.uuid(),
+}
+
 const makeSut = () => {
 	const deletePostRepository = new DeletePostRepositorySpy()
 	const fileDeleteAdapter = new FileDeleteAdapterSpy()
 	const sut = new DeletePostUseCase({ deletePostRepository, fileDeleteAdapter })
 
-	const params = {
-		id: faker.datatype.uuid(),
-		hashName: faker.datatype.uuid(),
-	}
+	const param = faker.datatype.uuid()
 
-	return { sut, deletePostRepository, fileDeleteAdapter, params }
+	deletePostRepository.deleteById = jest.fn().mockResolvedValue(deletedPost)
+	fileDeleteAdapter.deleteFile = jest.fn(() => null)
+
+	return { sut, deletePostRepository, fileDeleteAdapter, param }
 }
 
 describe('DeletePostUseCase', () => {
@@ -31,22 +38,29 @@ describe('DeletePostUseCase', () => {
 	})
 
 	it('should call deletePostRepository correctly', async () => {
-		const { sut, deletePostRepository, params } = makeSut()
-		deletePostRepository.deleteById = jest.fn(() => null)
+		const { sut, param } = makeSut()
 
-		await sut.delete(params)
+		await sut.delete(param)
 
-		expect(sut.deletePostRepository.deleteById).toHaveBeenCalledWith(params.id)
+		expect(sut.deletePostRepository.deleteById).toHaveBeenCalledWith(param)
 	})
 
 	it('should call fileDeleteAdapter correctly', async () => {
-		const { sut, fileDeleteAdapter, params } = makeSut()
-		fileDeleteAdapter.deleteFile = jest.fn(() => null)
+		const { sut, param } = makeSut()
 
-		await sut.delete(params)
+		await sut.delete(param)
 
 		expect(sut.fileDeleteAdapter.deleteFile).toHaveBeenCalledWith(
-			params.hashName
+			deletedPost.hashName
 		)
+	})
+
+	it('should not call fileDeleteAdapter when deleteById has no returned the deletedPost', async () => {
+		const { sut, deletePostRepository, param } = makeSut()
+		deletePostRepository.deleteById = jest.fn().mockResolvedValueOnce(undefined)
+
+		await sut.delete(param)
+
+		expect(sut.fileDeleteAdapter.deleteFile).toHaveBeenCalledTimes(0)
 	})
 })

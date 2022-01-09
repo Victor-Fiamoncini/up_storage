@@ -1,11 +1,13 @@
-import faker from 'faker'
+import { ObjectId } from 'mongodb'
+import { ObjectID } from 'bson'
+
 import MongoDeletePostRepository from '@/src/infra/repositories/MongoDeletePostRepository'
 
-const param = faker.datatype.uuid()
+const param = new ObjectID().toString()
 
 const makeSut = () => {
 	const postModelSpy = {
-		deleteOne: jest.fn().mockResolvedValueOnce(),
+		findOneAndDelete: jest.fn().mockResolvedValueOnce(),
 	}
 	const sut = new MongoDeletePostRepository(postModelSpy)
 
@@ -28,13 +30,15 @@ describe('MongoDeletePostRepository', () => {
 
 		await sut.deleteById(param)
 
-		expect(sut.postModel.deleteOne).toHaveBeenCalledWith({ _id: param })
+		expect(sut.postModel.findOneAndDelete).toHaveBeenCalledWith({
+			_id: new ObjectId(param),
+		})
 	})
 
 	it('should return void after success deletion', async () => {
 		const { sut } = makeSut()
 		const postToDelete = { id: param }
-		sut.postModel.deleteOne = jest.fn().mockImplementationOnce(() => {
+		sut.postModel.findOneAndDelete = jest.fn().mockImplementationOnce(() => {
 			const indexToDelete = db.findIndex(post => post.id === postToDelete.id)
 
 			db.splice(indexToDelete, 1)
