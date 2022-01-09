@@ -4,8 +4,8 @@ import filesize from 'filesize'
 import PostTypes from './types'
 import api from '../../../services/api'
 
-export const fetchPosts = () => async dispatch => {
-	dispatch({ type: PostTypes.LOADING })
+export const fetchAllPosts = () => async dispatch => {
+	dispatch({ type: PostTypes.FETCH_ALL_LOADING })
 
 	try {
 		const response = await api.get('/posts')
@@ -19,40 +19,41 @@ export const fetchPosts = () => async dispatch => {
 			url: file.url,
 		}))
 
-		dispatch({ type: PostTypes.FETCH, payload: serializedPosts })
-	} catch (err) {
-		dispatch({ type: PostTypes.FETCH_ERROR })
+		dispatch({ type: PostTypes.FETCH_ALL, payload: serializedPosts })
+	} catch {
+		dispatch({ type: PostTypes.FETCH_ALL_ERROR })
 	}
 }
 
-export const storePosts = files => async dispatch => {
-	const serializedFiles = files.map(file => ({
-		file,
+export const storePosts = posts => async dispatch => {
+	const serializedPostsToStore = posts.map(post => ({
+		file: post,
 		id: v4(),
-		name: file.name,
-		readableSize: filesize(file.size),
-		preview: URL.createObjectURL(file),
+		name: post.name,
+		readableSize: filesize(post.size),
+		preview: URL.createObjectURL(post),
 		progress: 0,
 		uploaded: false,
 		error: false,
 		url: null,
 	}))
 
-	dispatch({ type: PostTypes.PUSH_POSTS, payload: serializedFiles })
+	dispatch({ type: PostTypes.PUSH_POSTS, payload: serializedPostsToStore })
 
-	serializedFiles.forEach(async file => {
-		const data = new FormData()
-		data.append('photo', file.file, file.name)
+	serializedPostsToStore.forEach(async post => {
+		const postData = new FormData()
+
+		postData.append('photo', post.file, post.name)
 
 		try {
-			const response = await api.post('/posts', data, {
+			const response = await api.post('/posts', postData, {
 				onUploadProgress: ({ loaded, total }) => {
 					const progress = Number(Math.round((loaded * 100) / total))
 
 					dispatch({
-						type: PostTypes.UPDATE_SINGLE_POST,
+						type: PostTypes.STORE,
 						payload: {
-							id: file.id,
+							id: post.id,
 							data: { progress },
 						},
 					})
@@ -60,23 +61,22 @@ export const storePosts = files => async dispatch => {
 			})
 
 			dispatch({
-				type: PostTypes.UPDATE_SINGLE_POST,
+				type: PostTypes.STORE,
 				payload: {
-					id: file.id,
+					id: post.id,
 					data: {
-						id: response.data._id,
+						id: response.data.id,
 						url: response.data.url,
 						uploaded: true,
 					},
 				},
 			})
-			dispatch({ type: PostTypes.STORE })
-		} catch (err) {
-			dispatch({ type: PostTypes.STORE_ERROR, payload: err })
+		} catch {
+			dispatch({ type: PostTypes.STORE_ERROR })
 			dispatch({
-				type: PostTypes.UPDATE_SINGLE_POST,
+				type: PostTypes.STORE,
 				payload: {
-					id: file.id,
+					id: post.id,
 					data: { error: true },
 				},
 			})
@@ -89,7 +89,7 @@ export const deletePost = id => async dispatch => {
 		await api.delete(`/posts/${id}`)
 
 		dispatch({ type: PostTypes.DELETE, payload: id })
-	} catch (err) {
-		dispatch({ type: PostTypes.DELETE_ERROR, payload: err })
+	} catch {
+		dispatch({ type: PostTypes.DELETE_ERROR })
 	}
 }

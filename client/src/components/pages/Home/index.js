@@ -7,17 +7,17 @@ import Dropzone from '../../utils/Dropzone'
 import FileList from '../../layout/FileList'
 import Spinner from '../../layout/Spinner'
 
-import { fetchPosts } from '../../../store/ducks/post/actions'
+import { fetchAllPosts } from '../../../store/ducks/post/actions'
 
-export default function Home() {
+const Home = () => {
 	const dispatch = useDispatch()
 	const { posts, loading } = useSelector(state => state.post)
 
 	useEffect(() => {
-		dispatch(fetchPosts())
+		dispatch(fetchAllPosts())
 
 		return () => {
-			posts.forEach(file => URL.revokeObjectURL(file.preview))
+			posts.forEach(post => URL.revokeObjectURL(post.preview))
 		}
 	}, [])
 
@@ -25,9 +25,14 @@ export default function Home() {
 		<Container>
 			<Content>
 				<Dropzone />
-				{!posts.length > 0 && loading && <Spinner loading={loading} />}
-				{!!posts.length && !loading && <FileList />}
+				{!posts.length && loading ? (
+					<Spinner loading={loading} />
+				) : (
+					<FileList />
+				)}
 			</Content>
 		</Container>
 	)
 }
+
+export default Home

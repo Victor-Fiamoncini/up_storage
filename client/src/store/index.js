@@ -1,16 +1,12 @@
-import { applyMiddleware, compose, createStore } from 'redux'
+import { applyMiddleware, createStore } from 'redux'
 import thunk from 'redux-thunk'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 import reducers from './ducks'
 
 const middlewares = [thunk]
-const devtoolsExtension =
-	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 
 export default createStore(
 	reducers,
-	compose(
-		applyMiddleware(...middlewares),
-		process.env.NODE_ENV === 'development' ? devtoolsExtension : ''
-	)
+	composeWithDevTools(applyMiddleware(...middlewares))
 )
