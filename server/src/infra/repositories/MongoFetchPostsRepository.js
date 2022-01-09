@@ -10,7 +10,17 @@ class MongoFetchPostsRepository extends FetchPostsRepository {
 	async fetchAll() {
 		const posts = await this.postModel.find().toArray()
 
-		return posts ? posts : []
+		if (Array.isArray(posts) && posts.length) {
+			return posts.map(post => ({
+				id: post._id,
+				name: post.name,
+				size: post.size,
+				hashName: post.hash_name,
+				url: post.url,
+			}))
+		}
+
+		return []
 	}
 }
 

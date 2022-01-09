@@ -1,4 +1,5 @@
 import faker from 'faker'
+
 import MongoFetchPostsRepository from '@/src/infra/repositories/MongoFetchPostsRepository'
 
 const makeSut = returnValue => {
@@ -37,11 +38,25 @@ describe('MongoFetchPostsRepository', () => {
 
 	it('should return a list of posts if finded', async () => {
 		const { sut } = makeSut(db)
-		const post = { id: faker.datatype.uuid() }
+		const post = {
+			_id: faker.datatype.uuid(),
+			hash_name: faker.datatype.uuid(),
+			name: faker.datatype.uuid(),
+			size: faker.datatype.uuid(),
+			url: faker.datatype.uuid(),
+		}
 		db.push(post)
 
 		const posts = await sut.fetchAll()
 
-		expect(posts).toEqual([post])
+		expect(posts).toEqual([
+			{
+				id: post._id,
+				name: post.name,
+				size: post.size,
+				hashName: post.hash_name,
+				url: post.url,
+			},
+		])
 	})
 })

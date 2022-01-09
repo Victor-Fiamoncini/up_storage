@@ -14,10 +14,10 @@ class MongoDeletePostRepository extends DeletePostRepository {
 			_id: new ObjectId(id),
 		})
 
-		if (deletedPost?.value) {
+		if (deletedPost && deletedPost.value) {
 			return {
-				id: deletedPost.value?._id,
-				hashName: deletedPost.value?.hash_name,
+				id: deletedPost.value._id,
+				hashName: deletedPost.value.hash_name,
 			}
 		}
 	}

@@ -10,13 +10,13 @@ export const fetchAllPosts = () => async dispatch => {
 	try {
 		const response = await api.get('/posts')
 
-		const serializedPosts = response.data.map(file => ({
-			id: file._id,
-			name: file.name,
-			readbleSize: filesize(file.size),
-			preview: file.url,
+		const serializedPosts = response.data.map(post => ({
+			id: post.id,
+			name: post.name,
+			readbleSize: filesize(post.size),
+			preview: post.url,
 			uploaded: true,
-			url: file.url,
+			url: post.url,
 		}))
 
 		dispatch({ type: PostTypes.FETCH_ALL, payload: serializedPosts })
