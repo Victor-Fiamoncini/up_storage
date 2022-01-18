@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components'
 import light from './styles/themes/light'
 import GlobalStyle from './styles/global'
 
-import store from './store'
+import store from '@/src/store'
 import Routes from './routes'
 
 const App = () => (
