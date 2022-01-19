@@ -1,8 +1,8 @@
 import { v4 } from 'uuid'
 import filesize from 'filesize'
 
-import PostTypes from './types'
-import api from '../../../services/api'
+import PostTypes from '@/src/store/ducks/post/types'
+import api from '@/src/services/api'
 
 export const fetchAllPosts = () => async dispatch => {
 	dispatch({ type: PostTypes.FETCH_ALL_LOADING })

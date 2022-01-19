@@ -1,4 +1,4 @@
-import PostTypes from './types'
+import PostTypes from '@/src/store/ducks/post/types'
 
 const initialState = {
 	posts: [],

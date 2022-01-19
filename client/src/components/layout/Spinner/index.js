@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { BeatLoader } from 'react-spinners'
 import { ThemeContext } from 'styled-components'
 
-import { Container } from './styles'
+import { Container } from '@/src/components/layout/Spinner/styles'
 
-export default function Spinner({ loading }) {
+const Spinner = ({ loading }) => {
 	const { colors } = useContext(ThemeContext)
 
 	return (
@@ -18,3 +18,5 @@ export default function Spinner({ loading }) {
 Spinner.propTypes = {
 	loading: PropTypes.bool,
 }
+
+export default Spinner

@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import 'react-circular-progressbar/dist/styles.css'
 
-import App from './App'
+import App from '@/src/App'
 
 ReactDOM.render(
 	<React.StrictMode>

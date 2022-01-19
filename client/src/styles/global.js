@@ -34,7 +34,7 @@ export default createGlobalStyle`
 		}
 
 		&::-webkit-scrollbar-track {
-			background: #f5f5f5;
+			background: ${props => props.theme.colors.background};
 		}
 
 		&::-webkit-scrollbar-thumb {

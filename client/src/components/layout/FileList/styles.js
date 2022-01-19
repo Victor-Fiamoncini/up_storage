@@ -1,28 +1,30 @@
 import styled from 'styled-components'
 
 export const Container = styled.ul`
-	margin: 20px 0 0;
+	display: block;
+
 	li {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		margin: 15px 0 0;
 		color: ${props => props.theme.colors.text};
-		&:not(:first-of-type) {
-			margin: 15px 0 0;
-		}
 	}
 `
 
 export const FileInfo = styled.div`
 	display: flex;
 	align-items: center;
+
 	div {
 		display: flex;
 		flex-direction: column;
+
 		span {
 			font-size: 12px;
 			color: #999;
 			margin: 5px 0 0;
+
 			button {
 				border: 0;
 				margin: 0;

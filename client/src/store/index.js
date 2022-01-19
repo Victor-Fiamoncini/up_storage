@@ -2,11 +2,11 @@ import { applyMiddleware, createStore } from 'redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
-import reducers from './ducks'
+import rootReducer from '@/src/store/ducks/rootReducer'
 
 const middlewares = [thunk]
 
 export default createStore(
-	reducers,
+	rootReducer,
 	composeWithDevTools(applyMiddleware(...middlewares))
 )

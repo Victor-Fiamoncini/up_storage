@@ -12,11 +12,10 @@ export const Container = styled.div.attrs({ className: 'dropzone' })`
 	border: 1px dashed #ddd;
 	border-radius: 4px;
 	transition: height 0.2s ease;
+	cursor: pointer;
 
 	${props => props.isDragActive && dropActive};
 	${props => props.isDragReject && dropReject};
-
-	cursor: pointer;
 `
 
 export const Message = styled.p`

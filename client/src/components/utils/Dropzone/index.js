@@ -2,23 +2,18 @@ import React, { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { useDropzone } from 'react-dropzone'
 
-import { Container, Message } from './styles'
+import { Container, Message } from '@/src/components/utils/Dropzone/styles'
 
-import { storePosts } from '../../../store/ducks/post/actions'
+import { storePosts } from '@/src/store/ducks/post/actions'
 
-export default function Dropzone() {
+const Dropzone = () => {
 	const dispatch = useDispatch()
 
 	const onDropAccepted = useCallback(files => {
 		dispatch(storePosts(files))
 	}, [])
 
-	const {
-		getRootProps,
-		getInputProps,
-		isDragActive,
-		isDragReject,
-	} = useDropzone({
+	const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({
 		onDropAccepted,
 		accept: ['image/jpeg', 'image/pjpeg', 'image/png'],
 		multiple: true,
@@ -40,13 +35,11 @@ export default function Dropzone() {
 	}
 
 	return (
-		<Container
-			{...getRootProps()}
-			isDragActive={isDragActive}
-			isDragReject={isDragReject}
-		>
+		<Container {...getRootProps()} isDragActive={isDragActive} isDragReject={isDragReject}>
 			<input {...getInputProps()} />
 			{handleMessageChange(isDragActive, isDragReject)}
 		</Container>
 	)
 }
+
+export default Dropzone
