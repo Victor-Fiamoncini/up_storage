@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Container, Content } from '@/src/components/pages/Home/styles'
 
-import Dropzone from '@/src/components/utils/Dropzone'
-import FileList from '@/src/components/layout/FileList'
+import Dropzone from '@/src/components/pages/Home/Dropzone'
+import FileList from '@/src/components/pages/Home/FileList'
 import Spinner from '@/src/components/layout/Spinner'
 
 import { fetchAllPosts } from '@/src/store/ducks/post/actions'

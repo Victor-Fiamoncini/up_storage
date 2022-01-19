@@ -1,19 +1,19 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { animated, useSprings } from 'react-spring'
-import { ThemeContext } from 'styled-components'
+import { useTheme } from 'styled-components'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import { MdCheckCircle, MdError, MdLink } from 'react-icons/md'
 
-import { Container, FileInfo, Preview } from '@/src/components/layout/FileList/styles'
+import { Container, FileInfo, Preview } from '@/src/components/pages/Home/FileList/styles'
 
 import { deletePost } from '@/src/store/ducks/post/actions'
 
 const FileList = () => {
 	const dispatch = useDispatch()
-
-	const { colors } = useContext(ThemeContext)
 	const { posts } = useSelector(state => state.post)
+
+	const { colors } = useTheme()
 
 	const transitionProps = () => ({ from: { opacity: 0 }, to: { opacity: 1 }, leave: { opacity: 0 } })
 

@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { useDropzone } from 'react-dropzone'
 
-import { Container, Message } from '@/src/components/utils/Dropzone/styles'
+import { Container, Message } from '@/src/components/pages/Home/Dropzone/styles'
 
 import { storePosts } from '@/src/store/ducks/post/actions'
 
