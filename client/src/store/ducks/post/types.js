@@ -1,4 +1,4 @@
-export default {
+const PostTypes = {
 	FETCH_ALL_LOADING: '@post/FETCH_ALL_LOADING',
 	FETCH_ALL: '@post/FETCH_ALL',
 	FETCH_ALL_ERROR: '@post/FETCH_ALL_ERROR',
@@ -13,3 +13,5 @@ export default {
 
 	PUSH_POSTS: '@post/PUSH_POSTS',
 }
+
+export default PostTypes

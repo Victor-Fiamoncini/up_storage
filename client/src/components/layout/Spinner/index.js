@@ -1,9 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { BeatLoader } from 'react-spinners'
+
+import PropTypes from 'prop-types'
 import { useTheme } from 'styled-components'
 
-import { Container } from '@/src/components/layout/Spinner/styles'
+import Container from '@/src/components/layout/Spinner/styles'
 
 const Spinner = ({ loading }) => {
 	const { colors } = useTheme()

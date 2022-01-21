@@ -1,7 +1,7 @@
 import React from 'react'
-import { ThemeProvider as Theme } from 'styled-components'
 
 import PropTypes from 'prop-types'
+import { ThemeProvider as Theme } from 'styled-components'
 
 import light from '@/src/styles/themes/light'
 

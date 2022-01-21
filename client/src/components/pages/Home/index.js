@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Container, Content } from '@/src/components/pages/Home/styles'
-
+import Spinner from '@/src/components/layout/Spinner'
 import Dropzone from '@/src/components/pages/Home/Dropzone'
 import FileList from '@/src/components/pages/Home/FileList'
-import Spinner from '@/src/components/layout/Spinner'
-
+import Container from '@/src/components/pages/Home/styles'
 import { fetchAllPosts } from '@/src/store/ducks/post/actions'
 
 const Home = () => {
@@ -19,14 +17,14 @@ const Home = () => {
 		return () => {
 			posts.forEach(post => URL.revokeObjectURL(post.preview))
 		}
-	}, [])
+	}, [dispatch])
 
 	return (
 		<Container>
-			<Content>
+			<div>
 				<Dropzone />
 				{!posts.length && loading ? <Spinner loading={loading} /> : <FileList />}
-			</Content>
+			</div>
 		</Container>
 	)
 }

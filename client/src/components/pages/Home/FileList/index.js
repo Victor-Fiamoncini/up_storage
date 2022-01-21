@@ -1,12 +1,12 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { animated, useSprings } from 'react-spring'
-import { useTheme } from 'styled-components'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import { MdCheckCircle, MdError, MdLink } from 'react-icons/md'
+import { useDispatch, useSelector } from 'react-redux'
+import { animated, useSprings } from 'react-spring'
 
-import { Container, FileInfo, Preview } from '@/src/components/pages/Home/FileList/styles'
+import { useTheme } from 'styled-components'
 
+import Container from '@/src/components/pages/Home/FileList/styles'
 import { deletePost } from '@/src/store/ducks/post/actions'
 
 const FileList = () => {
@@ -26,15 +26,15 @@ const FileList = () => {
 
 				return (
 					<animated.li key={i} style={animation}>
-						<FileInfo>
-							<Preview src={post.preview} />
+						<header>
+							<img src={post.preview} alt="Post preview" />
 							<div>
 								<strong>{post.name}</strong>
 								<span>
 									{post.size} {post.uploaded && <button onClick={() => dispatch(deletePost(post.id))}>Excluir</button>}
 								</span>
 							</div>
-						</FileInfo>
+						</header>
 						<div>
 							{!post.uploaded && !post.error && (
 								<CircularProgressbar

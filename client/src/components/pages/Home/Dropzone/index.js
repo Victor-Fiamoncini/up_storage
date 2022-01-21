@@ -1,17 +1,19 @@
 import React, { useCallback } from 'react'
-import { useDispatch } from 'react-redux'
 import { useDropzone } from 'react-dropzone'
+import { useDispatch } from 'react-redux'
 
 import { Container, Message } from '@/src/components/pages/Home/Dropzone/styles'
-
 import { storePosts } from '@/src/store/ducks/post/actions'
 
 const Dropzone = () => {
 	const dispatch = useDispatch()
 
-	const onDropAccepted = useCallback(files => {
-		dispatch(storePosts(files))
-	}, [])
+	const onDropAccepted = useCallback(
+		files => {
+			dispatch(storePosts(files))
+		},
+		[dispatch]
+	)
 
 	const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({
 		onDropAccepted,

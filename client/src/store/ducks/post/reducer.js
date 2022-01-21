@@ -6,7 +6,7 @@ const initialState = {
 	error: false,
 }
 
-export default (state = initialState, { payload, type }) => {
+const postReducer = (state = initialState, { payload, type }) => {
 	switch (type) {
 		case PostTypes.FETCH_ALL_LOADING:
 		case PostTypes.STORE_LOADING:
@@ -63,3 +63,5 @@ export default (state = initialState, { payload, type }) => {
 		}
 	}
 }
+
+export default postReducer
