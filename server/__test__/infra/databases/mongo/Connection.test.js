@@ -8,7 +8,7 @@ const makeSut = () => {
 	return { sut }
 }
 
-describe('Connection', () => {
+describe('Mongo connection', () => {
 	it('should connect successfully', async () => {
 		const { sut } = makeSut()
 
